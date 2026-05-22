@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import ClientLayout from "@/components/ui/ClientLayout"
+import logoNexolia from "@/public/logoNexo.png"
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.nexolia-consulting.com"),
@@ -9,6 +10,14 @@ export const metadata: Metadata = {
     template: "%s | NEXOLIA",
   },
   description: "NEXOLIA : Société de développement informatique franco-tunisienne. Expert en création d'applications sur-mesure (SaaS, Web, Mobile), intégration de solutions Microsoft 365 (SPFx, Power Automate, Power BI) et formation PMP.",
+ 
+ icons: {
+    icon: "/logoNexo.png",
+    shortcut: "/logoNexo.png",
+    apple: "/logoNexo.png",
+  },
+ 
+ 
   keywords: [
     // --- Requêtes ciblées en Tunisie (Local & Expertise) ---
     "boite de developpement logiciele tunisie", "agence des service informatique tunis", 
@@ -54,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "NEXOLIA",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url:"/logoNexo.png",
         width: 1200,
         height: 630,
         alt: "NEXOLIA - Services Informatiques, Solutions Microsoft et Formations",
@@ -65,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NEXOLIA | Expert Tech (SaaS, Mobile, Microsoft 365)",
     description: "Accompagnement digital et développement logiciel de pointe pour entreprises en France et en Tunisie.",
-    images: ["/images/og-image.jpg"],
+    images:  ["/logoNexo.png"],
   },
 }
 
