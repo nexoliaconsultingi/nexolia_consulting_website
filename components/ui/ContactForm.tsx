@@ -74,8 +74,6 @@ const ContactForm: React.FC = () => {
 
 
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
-
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -84,19 +82,30 @@ const handleSubmit = async (e: React.FormEvent) => {
   setIsSubmitting(true);
 
   try {
-    const response = await fetch(`https://nexolia-consulting.com/api/send-email`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+
+    const response = await fetch(
+      "https://api.nexolia-consulting.com/send-email/api/send",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    // Vérifier si réponse backend OK
+    if (!response.ok) {
+      throw new Error(`HTTP Error : ${response.status}`);
+    }
 
     const data = await response.json();
 
     if (data.success) {
+
       setSubmitSuccess(true);
 
+      // Reset formulaire
       setFormData({
         firstName: "",
         lastName: "",
@@ -110,15 +119,24 @@ const handleSubmit = async (e: React.FormEvent) => {
         newsletter: false,
       });
 
-      setTimeout(() => setSubmitSuccess(false), 3000);
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 3000);
+
     } else {
       throw new Error(data.message);
     }
+
   } catch (error) {
-    console.error("Erreur:", error);
-    alert("Une erreur est survenue. Veuillez réessayer.");
+
+    console.error("Erreur Email :", error);
+
+    alert("Erreur lors de l'envoi du message.");
+
   } finally {
+
     setIsSubmitting(false);
+
   }
 };
 
