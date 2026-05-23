@@ -1,0 +1,14 @@
+{
+  "name": "NEXOLIA CONSULTING",
+  "short_name": "NEXOLIA",
+  "icons": [
+    {
+      "src": "/faveIconNexolia.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
