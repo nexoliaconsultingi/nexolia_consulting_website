@@ -84,7 +84,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   setIsSubmitting(true);
 
   try {
-    const response = await fetch(`/api/send-email`, {
+    const response = await fetch(`https://nexolia-consulting.com/api/send-email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

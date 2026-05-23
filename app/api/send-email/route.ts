@@ -4,72 +4,76 @@ import path from 'path'
 import fs from 'fs'
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json()
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      company,
-      projectType,
-      budget,
-      timeline,
-      message,
-      newsletter,
-    } = body
+    try {
+        const body = await request.json()
+        const {
+            firstName,
+            lastName,
+            email,
+            phone,
+            company,
+            projectType,
+            budget,
+            timeline,
+            message,
+            newsletter,
+        } = body
 
-    // Fonction pour obtenir le type de projet en français
-    const getProjectTypeLabel = (type: string) => {
-      const types: Record<string, string> = {
-        web: 'Site Web / E-commerce',
-        mobile: 'Application Mobile',
-        saas: 'Plateforme SaaS',
-        design: 'Design & UX/UI',
-        spfx: 'Microsoft SPFx Solutions',
-        'power-automate': 'Power Automate Workflows',
-        'power-bi': 'Power BI Reporting Dashboards',
-        'microsoft-project': 'Microsoft Project PMO Installation',
-      }
-      return types[type] || type || 'Non spécifié'
-    }
+        // Fonction pour obtenir le type de projet en français
+        const getProjectTypeLabel = (type: string) => {
+            const types: Record<string, string> = {
+                web: 'Site Web / E-commerce',
+                mobile: 'Application Mobile',
+                saas: 'Plateforme SaaS',
+                design: 'Design & UX/UI',
+                spfx: 'Microsoft SPFx Solutions',
+                'power-automate': 'Power Automate Workflows',
+                'power-bi': 'Power BI Reporting Dashboards',
+                'microsoft-project': 'Microsoft Project PMO Installation',
+            }
+            return types[type] || type || 'Non spécifié'
+        }
 
-    // Fonction pour obtenir le budget en français
-    const getBudgetLabel = (budget: string) => {
-      const budgets: Record<string, string> = {
-        '5k-15k': '5 000 $ - 15 000 $',
-        '15k-50k': '15 000 $ - 50 000 $',
-        '50k+': '50 000 $ +',
-      }
-      return budgets[budget] || budget || 'Non spécifié'
-    }
+        // Fonction pour obtenir le budget en français
+        const getBudgetLabel = (budget: string) => {
+            const budgets: Record<string, string> = {
+                '5k-15k': '5 000 $ - 15 000 $',
+                '15k-50k': '15 000 $ - 50 000 $',
+                '50k+': '50 000 $ +',
+            }
+            return budgets[budget] || budget || 'Non spécifié'
+        }
 
-    // Fonction pour obtenir le délai en français
-    const getTimelineLabel = (timeline: string) => {
-      const timelines: Record<string, string> = {
-        urgent: 'Urgent (moins d\'un mois)',
-        '1-3': '1 à 3 mois',
-        '5-12': '5 à 12 mois',
-      }
-      return timelines[timeline] || timeline || 'Non spécifié'
-    }
+        // Fonction pour obtenir le délai en français
+        const getTimelineLabel = (timeline: string) => {
+            const timelines: Record<string, string> = {
+                urgent: 'Urgent (moins d\'un mois)',
+                '1-3': '1 à 3 mois',
+                '5-12': '5 à 12 mois',
+            }
+            return timelines[timeline] || timeline || 'Non spécifié'
+        }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER_NEXOLIA,
-        pass: process.env.EMAIL_PASS_NEXOLIA,
-      },
-    })
+        // Configuration du transporteur email
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: Number(process.env.EMAIL_PORT),
+            secure: true, // true si port 465
+            auth: {
+                user: process.env.EMAIL_USER_NEXOLIA,
+                pass: process.env.EMAIL_PASS_NEXOLIA,
+            },
+            tls: {
+                rejectUnauthorized: false,
+            },
+        })
 
-    // Template email administrateur amélioré avec logo
-    const adminMailOptions = {
-      from: `"NEXOLIA Consulting" <${process.env.EMAIL_USER_NEXOLIA}>`,
-      to: process.env.EMAIL_USER_NEXOLIA,
-      subject: `📬 Nouvelle demande de contact - ${firstName} ${lastName}`,
-      html: `
+        // Template email administrateur amélioré avec logo
+        const adminMailOptions = {
+            from: `"NEXOLIA Consulting" <${process.env.EMAIL_USER_NEXOLIA}>`,
+            to: process.env.EMAIL_USER_NEXOLIA,
+            subject: `📬 Nouvelle demande de contact - ${firstName} ${lastName}`,
+            html: `
         <!DOCTYPE html>
         <html lang="fr">
         <head>
@@ -311,21 +315,21 @@ export async function POST(request: Request) {
         </body>
         </html>
       `,
-      attachments: [
-        {
-          filename: 'logoNexo.png',
-          path: path.join(process.cwd(), 'public', 'logoNexo.png'),
-          cid: 'logoNexolia'
+            attachments: [
+                {
+                    filename: 'logoNexo.png',
+                    path: path.join(process.cwd(), 'public', 'logoNexo.png'),
+                    cid: 'logoNexolia'
+                }
+            ]
         }
-      ]
-    }
 
-    // Template email client amélioré avec logo
-    const clientMailOptions = {
-      from: `"NEXOLIA Consulting" <${process.env.EMAIL_USER_NEXOLIA}>`,
-      to: email,
-      subject: '✨ Confirmation de votre demande - NEXOLIA Consulting',
-      html: `
+        // Template email client amélioré avec logo
+        const clientMailOptions = {
+            from: `"NEXOLIA Consulting" <${process.env.EMAIL_USER_NEXOLIA}>`,
+            to: email,
+            subject: '✨ Confirmation de votre demande - NEXOLIA Consulting',
+            html: `
         <!DOCTYPE html>
         <html lang="fr">
         <head>
@@ -548,28 +552,28 @@ export async function POST(request: Request) {
         </body>
         </html>
       `,
-      attachments: [
-        {
-          filename: 'logoNexo.png',
-          path: path.join(process.cwd(), 'public', 'logoNexo.png'),
-          cid: 'logoNexolia'
+            attachments: [
+                {
+                    filename: 'logoNexo.png',
+                    path: path.join(process.cwd(), 'public', 'logoNexo.png'),
+                    cid: 'logoNexolia'
+                }
+            ]
         }
-      ]
+
+        // Envoyer les deux emails
+        await transporter.sendMail(adminMailOptions)
+        await transporter.sendMail(clientMailOptions)
+
+        return NextResponse.json(
+            { success: true, message: 'Email envoyé avec succès' },
+            { status: 200 }
+        )
+    } catch (error) {
+        console.error('Erreur détaillée:', error)
+        return NextResponse.json(
+            { success: false, message: 'Erreur lors de l\'envoi de l\'email' },
+            { status: 500 }
+        )
     }
-
-    // Envoyer les deux emails
-    await transporter.sendMail(adminMailOptions)
-    await transporter.sendMail(clientMailOptions)
-
-    return NextResponse.json(
-      { success: true, message: 'Email envoyé avec succès' },
-      { status: 200 }
-    )
-  } catch (error) {
-    console.error('Erreur détaillée:', error)
-    return NextResponse.json(
-      { success: false, message: 'Erreur lors de l\'envoi de l\'email' },
-      { status: 500 }
-    )
-  }
 }
