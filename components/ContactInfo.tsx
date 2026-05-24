@@ -418,7 +418,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                                 <div className="flex items-center gap-2 sm:gap-3">
                                     <Mail className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
 
-                                    <h2 className="text-[12px] sm:text-xl font-semibold text-white">
+                                    <h2 className="text-xl font-semibold text-white">
                                         Adresses email
                                     </h2>
                                 </div>
