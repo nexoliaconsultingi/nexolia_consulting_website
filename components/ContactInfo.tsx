@@ -242,15 +242,15 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
     useEffect(() => {
         if (mapLoaded && typeof window !== 'undefined' && (window as any).L) {
             const L = (window as any).L;
-            
+
             // Vérifier si la carte existe déjà
             const mapContainer = document.getElementById('interactive-map');
             if (mapContainer && !mapContainer.hasAttribute('data-map-initialized')) {
                 mapContainer.setAttribute('data-map-initialized', 'true');
-                
+
                 // Initialiser la carte
                 const map = L.map('interactive-map').setView([data.map.latitude, data.map.longitude], 15);
-                
+
                 // Ajouter le fond de carte
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -258,7 +258,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                     maxZoom: 19,
                     minZoom: 3
                 }).addTo(map);
-                
+
                 // Ajouter un marqueur personnalisé
                 const customIcon = L.divIcon({
                     className: 'custom-marker',
@@ -267,9 +267,9 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                     iconAnchor: [18, 36],
                     popupAnchor: [0, -36]
                 });
-                
+
                 const marker = L.marker([data.map.latitude, data.map.longitude], { icon: customIcon }).addTo(map);
-                
+
                 // Ajouter un popup
                 marker.bindPopup(`
                     <div style="font-family: sans-serif;">
@@ -278,10 +278,10 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                         <span style="font-size: 11px; color: #9ca3af;">Rue de la Technologie, Tunis</span>
                     </div>
                 `).openPopup();
-                
+
                 // Ajouter un contrôle de zoom
                 map.zoomControl.setPosition('bottomright');
-                
+
                 // Redimensionner la carte après un court délai
                 setTimeout(() => {
                     map.invalidateSize();
@@ -342,84 +342,139 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                                     <h2 className="text-xl font-semibold text-white">Ligne directe</h2>
                                 </div>
                             </div>
-                            <div className="p-6">
+
+
+
+                            <div className="p-3 sm:p-6">
                                 <div className="space-y-4">
                                     {data.phones.filter(p => p.available).map((phone, index) => (
-                                        <div key={index} className="flex items-center justify-between group p-3 rounded-xl hover:bg-gray-50 transition-all duration-300">
+                                        <div
+                                            key={index}
+                                            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 group p-3 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                                        >
                                             <div className="flex-1">
-                                                <div className="flex items-center gap-2">
-                                                    <p className="text-lg font-semibold text-gray-900">{phone.number}</p>
-                                                    {index === 0 && <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">Prioritaire</span>}
+                                                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                                    <p className="text-[12px] sm:text-lg font-semibold text-gray-900 break-all">
+                                                        {phone.number}
+                                                    </p>
+
+                                                    {index === 0 && (
+                                                        <span className="px-2 py-1 bg-green-100 text-green-700 text-[10px] sm:text-xs rounded-full w-fit">
+                                                            Prioritaire
+                                                        </span>
+                                                    )}
                                                 </div>
-                                                <div className="flex items-center gap-2 mt-1">
-                                                    <p className="text-sm text-gray-500">{phone.label}</p>
-                                                    <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                                                    <p className="text-sm text-gray-500">{phone.country}</p>
+
+                                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1">
+                                                    <p className="text-[10px] sm:text-sm text-gray-500">
+                                                        {phone.label}
+                                                    </p>
+
+                                                    <span className="hidden sm:block w-1 h-1 bg-gray-300 rounded-full"></span>
+
+                                                    <p className="text-[10px] sm:text-sm text-gray-500">
+                                                        {phone.country}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div className="flex gap-2">
+
+                                            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                                                 <button
                                                     onClick={() => window.location.href = `tel:${phone.number}`}
-                                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 flex items-center gap-2"
+                                                    className="w-full sm:w-auto px-3 sm:px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 flex items-center justify-center gap-2 text-[10px] sm:text-sm"
                                                 >
-                                                    <Phone className="w-4 h-4" />
+                                                    <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     Appeler
                                                 </button>
+
                                                 <button
                                                     onClick={() => copyToClipboard(phone.number, `phone-${index}`)}
-                                                    className="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all"
+                                                    className="w-full sm:w-auto p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all flex items-center justify-center"
                                                 >
-                                                    {copiedField === `phone-${index}` ?
-                                                        <Check className="w-5 h-5 text-green-600" /> :
-                                                        <Copy className="w-5 h-5 text-gray-600" />
-                                                    }
+                                                    {copiedField === `phone-${index}` ? (
+                                                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                                                    ) : (
+                                                        <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                                                    )}
                                                 </button>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
+
+
+
+
+
+
+
+
                         </div>
 
                         {/* Emails */}
                         <div className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
-                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
-                                <div className="flex items-center gap-3">
-                                    <Mail className="w-6 h-6 text-white" />
-                                    <h2 className="text-xl font-semibold text-white">Adresses email</h2>
+                            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-3 sm:px-6 py-3 sm:py-4">
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    <Mail className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+
+                                    <h2 className="text-[12px] sm:text-xl font-semibold text-white">
+                                        Adresses email
+                                    </h2>
                                 </div>
                             </div>
-                            <div className="p-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <div className="p-3 sm:p-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                                     {data.emails.map((email, index) => (
-                                        <div key={index} className="group p-4 rounded-xl bg-gray-50 hover:bg-gradient-to-r hover:from-blue-50 hover:to-white transition-all duration-300">
-                                            <div className="flex items-start justify-between">
+                                        <div
+                                            key={index}
+                                            className="group p-3 sm:p-4 rounded-xl bg-gray-50 hover:bg-gradient-to-r hover:from-blue-50 hover:to-white transition-all duration-300"
+                                        >
+                                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                                                 <div className="flex-1">
                                                     <div className="flex items-center gap-2 mb-2">
-                                                        <span className="text-2xl">{email.icon}</span>
-                                                        <p className="font-semibold text-gray-900">{email.label}</p>
+                                                        <span className="text-lg sm:text-2xl">
+                                                            {email.icon}
+                                                        </span>
+
+                                                        <p className="text-[11px] sm:text-base font-semibold text-gray-900">
+                                                            {email.label}
+                                                        </p>
                                                     </div>
-                                                    <p className="text-sm text-gray-600 font-mono mb-2">{email.address}</p>
-                                                    <div className="flex items-center gap-2 text-xs">
-                                                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full">{email.department}</span>
-                                                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full">Réponse {email.responseTime}</span>
+
+                                                    <p className="text-[10px] sm:text-sm text-gray-600 font-mono mb-2 break-all">
+                                                        {email.address}
+                                                    </p>
+
+                                                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs">
+                                                        <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-[9px] sm:text-xs w-fit">
+                                                            {email.department}
+                                                        </span>
+
+                                                        <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-[9px] sm:text-xs w-fit">
+                                                            Réponse {email.responseTime}
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div className="flex gap-2">
+
+                                                <div className="flex gap-2 w-full sm:w-auto">
                                                     <button
                                                         onClick={() => window.location.href = `mailto:${email.address}`}
-                                                        className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all"
+                                                        className="flex-1 sm:flex-none p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center"
                                                     >
-                                                        <Send className="w-4 h-4" />
+                                                        <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                                                     </button>
+
                                                     <button
                                                         onClick={() => copyToClipboard(email.address, `email-${index}`)}
-                                                        className="p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all"
+                                                        className="flex-1 sm:flex-none p-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-all flex items-center justify-center"
                                                     >
-                                                        {copiedField === `email-${index}` ?
-                                                            <Check className="w-4 h-4 text-green-600" /> :
-                                                            <Copy className="w-4 h-4 text-gray-600" />
-                                                        }
+                                                        {copiedField === `email-${index}` ? (
+                                                            <Check className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                                                        ) : (
+                                                            <Copy className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
+                                                        )}
                                                     </button>
                                                 </div>
                                             </div>
@@ -448,7 +503,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                                                 <div key={index} className="flex justify-between items-center text-sm">
                                                     <span className="text-gray-600">{hour.day}</span>
                                                     <span className={`font-medium ${hour.status === 'open' ? 'text-green-600' :
-                                                            hour.status === 'reduced' ? 'text-orange-600' : 'text-red-600'
+                                                        hour.status === 'reduced' ? 'text-orange-600' : 'text-red-600'
                                                         }`}>
                                                         {hour.hours}
                                                     </span>
@@ -554,35 +609,46 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
                                 </div>
 
                                 {/* Boutons d'itinéraire */}
-                                <div className="flex gap-2">
-                                    <a
-                                        href={data.map.googleMapsUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105"
-                                    >
-                                        <Navigation className="w-4 h-4" />
-                                        Google Maps
-                                    </a>
-                                    <a
-                                        href={data.map.wazeUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all transform hover:scale-105"
-                                    >
-                                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                                        </svg>
-                                        Waze
-                                    </a>
-                                    <button
-                                        onClick={() => copyToClipboard(data.map.address, 'address')}
-                                        className="p-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all"
-                                        title="Copier l'adresse"
-                                    >
-                                        {copiedField === 'address' ? <Check className="w-5 h-5 text-green-600" /> : <Copy className="w-5 h-5 text-gray-600" />}
-                                    </button>
-                                </div>
+                                <div className="flex flex-col sm:flex-row gap-2">
+  <a
+    href={data.map.googleMapsUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 text-[10px] sm:text-sm"
+  >
+    <Navigation className="w-3 h-3 sm:w-4 sm:h-4" />
+    Google Maps
+  </a>
+
+  <a
+    href={data.map.wazeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all transform hover:scale-105 text-[10px] sm:text-sm"
+  >
+    <svg
+      className="w-3 h-3 sm:w-4 sm:h-4"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    </svg>
+
+    Waze
+  </a>
+
+  <button
+    onClick={() => copyToClipboard(data.map.address, "address")}
+    className="w-full sm:w-auto p-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-all flex items-center justify-center"
+    title="Copier l'adresse"
+  >
+    {copiedField === "address" ? (
+      <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+    ) : (
+      <Copy className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+    )}
+  </button>
+</div>
 
                                 {/* Information supplémentaire */}
                                 <div className="mt-4 p-3 bg-yellow-50 rounded-lg border border-yellow-200">

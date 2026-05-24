@@ -597,25 +597,25 @@ const handleSubmit = async (e: React.FormEvent) => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <Button
-                          type="submit"
-                          size="lg"
-                          disabled={isSubmitting}
-                          className="w-full text-lg bg-gradient-to-r from-[#53828a] to-[#b05f76] text-white py-6 shadow-xl hover:shadow-2xl transition-all duration-300 group"
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                              Envoi en cours...
-                            </>
-                          ) : (
-                            <>
-                              <Send className="mr-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                              Envoyer ma demande
-                              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </>
-                          )}
-                        </Button>
+                       <Button
+  type="submit"
+  size="lg"
+  disabled={isSubmitting}
+  className="w-full text-[10px] sm:text-lg bg-gradient-to-r from-[#53828a] to-[#b05f76] text-white py-6 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+>
+  {isSubmitting ? (
+    <>
+      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+      Envoi en cours...
+    </>
+  ) : (
+    <>
+      <Send className="mr-2 w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+      Envoyer ma demande
+      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+    </>
+  )}
+</Button>
                       </motion.div>
                     </motion.form>
                   )}
