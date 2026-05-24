@@ -56,7 +56,7 @@ const NavBar: React.FC = () => {
                 {isMenuOpen && (
                     <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-md rounded-md p-4 z-50">
                         <div className="flex flex-col space-y-4">
-                            <Link href="/out/" className="text-[#727683] hover:text-[#53828a] transition-colors block">
+                            <Link href="/" className="text-[#727683] hover:text-[#53828a] transition-colors block">
                                 Accueil
                             </Link>
 
