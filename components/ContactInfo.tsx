@@ -124,7 +124,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ customData, theme = 'light' }
         },
         phones: [
             { number: "+216 23 267 646", label: "Standard", type: "fixed", country: "Tunisie", available: true, priority: 1 },
-            { number: "+216 70 123 456", label: "Urgence", type: "mobile", country: "Tunisie", available: true, priority: 2 },
+            { number: "+216 92 233 647", label: "Urgence", type: "mobile", country: "Tunisie", available: true, priority: 2 },
         ],
         emails: [
             { address: "contact@nexolia-consulting.com", label: "Commercial", department: "Ventes", responseTime: "< 2h", icon: "💼" },

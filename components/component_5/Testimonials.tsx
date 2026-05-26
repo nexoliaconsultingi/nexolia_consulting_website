@@ -29,7 +29,7 @@ const STATIC_REVIEWS: Review[] = [
     service: "Développement application mobile",
     reviewText: "Application mobile fluide et bien conçue. L’équipe a parfaitement compris nos besoins et livré un produit de qualité.",
     rating: 5,
-    city: "Tunis",
+    city: "France",
     createdAt: "2024-01-15T10:00:00Z"
   },
   {
@@ -40,13 +40,13 @@ const STATIC_REVIEWS: Review[] = [
     service: "Site web & SEO",
     reviewText: "Excellent travail sur notre site web avec un référencement SEO très performant. Nous avons gagné en visibilité rapidement.",
     rating: 5,
-    city: "Sousse",
+    city: "¨Paris",
     createdAt: "2024-01-20T14:30:00Z"
   },
   {
     _id: "3",
-    userName: "Marie Dubois",
-    email: "marie@example.com",
+    userName: "Mariam lifi",
+    email: "mariam@example.com",
     profileImage: "/clients/marie.png",
     service: "Solution Microsoft SPFx",
     reviewText: "Très bonne expertise sur SharePoint SPFx. La solution livrée est stable, moderne et parfaitement intégrée à notre système.",
@@ -67,8 +67,8 @@ const STATIC_REVIEWS: Review[] = [
   },
   {
     _id: "5",
-    userName: "Claire Petit",
-    email: "claire@example.com",
+    userName: "Emani wefi",
+    email: "emani@example.com",
     profileImage: "/clients/claire.png",
     service: "Formation MS Project",
     reviewText: "Formation MS Project très bien structurée. J’ai pu maîtriser la planification de projets efficacement.",
@@ -84,7 +84,7 @@ const STATIC_REVIEWS: Review[] = [
     service: "Développement application mobile",
     reviewText: "Application mobile rapide et intuitive. L’équipe est très professionnelle et à l’écoute.",
     rating: 4,
-    city: "Tunis",
+    city: "france",
     createdAt: "2024-02-10T13:00:00Z"
   },
   {
@@ -100,8 +100,8 @@ const STATIC_REVIEWS: Review[] = [
   },
   {
     _id: "8",
-    userName: "Pierre Laurent",
-    email: "pierre@example.com",
+    userName: "Hamza tborski",
+    email: "hamza@example.com",
     profileImage: "/clients/pier.png",
     service: "Dashboard Power BI",
     reviewText: "Super dashboard Power BI qui nous aide à prendre de meilleures décisions grâce aux données en temps réel.",
