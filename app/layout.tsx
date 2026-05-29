@@ -100,10 +100,6 @@ export const metadata: Metadata = {
     description: "Expert SaaS, ERP, Mobile et Microsoft 365",
     images: ["https://nexolia-consulting.com/logoNexo.png"],
   },
-
-  verification: {
-    google: "votre-code-google-verification",
-  },
 }
 
 export default function RootLayout({
