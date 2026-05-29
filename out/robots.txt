@@ -4,13 +4,17 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /dashboard/
+Disallow: /*.json$
 
 Sitemap: https://nexolia-consulting.com/sitemap.xml
+
 
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
-Disallow: /_next/
+Disallow: /admin/
+Disallow: /dashboard/
+
 
 User-agent: Googlebot-Image
 Allow: /
