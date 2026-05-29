@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import ClientLayout from "@/components/ui/ClientLayout"
 
-/* ================= VIEWPORT ================= */
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -11,7 +10,6 @@ export const viewport: Viewport = {
   themeColor: "#53828a",
 }
 
-/* ================= METADATA SEO ================= */
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexolia-consulting.com"),
 
@@ -108,7 +106,6 @@ export const metadata: Metadata = {
   },
 }
 
-/* ================= ROOT LAYOUT ================= */
 export default function RootLayout({
   children,
 }: {
@@ -126,14 +123,12 @@ export default function RootLayout({
       <body className="antialiased bg-white text-gray-900 min-h-screen flex flex-col">
         <ClientLayout>{children}</ClientLayout>
 
-        {/* ================= JSON-LD SEO ================= */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@graph": [
-                /* ================= WEBSITE ================= */
                 {
                   "@type": "WebSite",
                   "@id": "https://nexolia-consulting.com/#website",
@@ -147,25 +142,25 @@ export default function RootLayout({
                   },
                 },
 
-                /* ================= PRODUCT ERP ================= */
                 {
                   "@type": "Service",
                   "@id": "https://nexolia-consulting.com/#erp",
-                  name: "ERP & Digitalisation des Entreprises",
-                  description:
-                    "Analyse gratuite + développement ERP + consulting + suivi.",
-                  image:
-                    "https://nexolia-consulting.com/new/erp.png",
-                  offers: {
+                  "name": "ERP & Digitalisation des Entreprises",
+                  "description": "Analyse gratuite + développement ERP + consulting + suivi.",
+                  "image": "https://nexolia-consulting.com/new/erp.png",
+
+                  "offers": {
                     "@type": "Offer",
-                    "price": 2500,
-                    "priceCurrency": "USD",
+                    "priceSpecification": {
+                      "@type": "PriceSpecification",
+                      "price": 2500,
+                      "priceCurrency": "USD"
+                    },
                     "availability": "https://schema.org/InStock",
                     "url": "https://nexolia-consulting.com/services"
                   }
                 },
 
-                /* ================= LOCAL BUSINESS ================= */
                 {
                   "@type": "LocalBusiness",
                   "@id":
@@ -192,7 +187,20 @@ export default function RootLayout({
                     longitude: 10.1878,
                   },
 
-                  openingHours: "Mo-Fr 08:30-17:30",
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday"
+                      ],
+                      "opens": "08:30",
+                      "closes": "17:30"
+                    }
+                  ],
 
                   sameAs: [
                     "https://www.instagram.com/nexoliaconsulting/",
@@ -218,7 +226,6 @@ export default function RootLayout({
                   ],
                 },
 
-                /* ================= BREADCRUMB ================= */
                 {
                   "@type": "BreadcrumbList",
                   itemListElement: [
