@@ -149,7 +149,7 @@ export default function RootLayout({
 
                 /* ================= PRODUCT ERP ================= */
                 {
-                  "@type": "Product",
+                  "@type": "Service",
                   "@id": "https://nexolia-consulting.com/#erp",
                   name: "ERP & Digitalisation des Entreprises",
                   description:
@@ -158,12 +158,11 @@ export default function RootLayout({
                     "https://nexolia-consulting.com/new/erp.png",
                   offers: {
                     "@type": "Offer",
-                    price: "2500",
-                    priceCurrency: "USD",
-                    availability:
-                      "https://schema.org/InStock",
-                    url: "https://nexolia-consulting.com/services",
-                  },
+                    "price": 2500,
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://nexolia-consulting.com/services"
+                  }
                 },
 
                 /* ================= LOCAL BUSINESS ================= */
