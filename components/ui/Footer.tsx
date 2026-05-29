@@ -1,94 +1,110 @@
-"use client"
+"use client";
 
-import React, { useEffect, useRef, useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Shield, Mail, Phone, MapPin, Send,Instagram, Github, Linkedin, Twitter, Facebook, ArrowUp, Sparkles, Cpu, Code2, Brain, Zap, Globe, Clock, Award, Heart, TrendingUp, ChevronRight, Coffee, Smile, CheckCircle } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { useRouter } from "next/navigation"
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Shield,
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Instagram,
+  Github,
+  Linkedin,
+  Twitter,
+  Facebook,
+  ArrowUp,
+  Sparkles,
+  Cpu,
+  Code2,
+  Brain,
+  Zap,
+  Globe,
+  Clock,
+  Award,
+  Heart,
+  TrendingUp,
+  ChevronRight,
+  Coffee,
+  Smile,
+  CheckCircle,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Footer: React.FC = () => {
-  const router = useRouter()
-  const [email, setEmail] = useState("")
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-  const [typedText, setTypedText] = useState("")
-  const [hoveredService, setHoveredService] = useState<number | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const fullText = "Innover intelligemment. Exceller durablement"
-  const footerRef = useRef<HTMLElement>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [typedText, setTypedText] = useState("");
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const fullText = "Innover intelligemment. Exceller durablement";
+  const footerRef = useRef<HTMLElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Typing animation
   useEffect(() => {
-    let index = 0
-    let timeout: NodeJS.Timeout
+    let index = 0;
+    let timeout: NodeJS.Timeout;
     const typeNext = () => {
       if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index))
-        index++
-        timeout = setTimeout(typeNext, 60)
+        setTypedText(fullText.slice(0, index));
+        index++;
+        timeout = setTimeout(typeNext, 60);
       } else {
         timeout = setTimeout(() => {
-          index = 0
-          setTypedText("")
-          timeout = setTimeout(typeNext, 400)
-        }, 2500)
+          index = 0;
+          setTypedText("");
+          timeout = setTimeout(typeNext, 400);
+        }, 2500);
       }
-    }
-    typeNext()
-    return () => clearTimeout(timeout)
-  }, [])
+    };
+    typeNext();
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.05, rootMargin: "30px" }
-    )
-    if (footerRef.current) observer.observe(footerRef.current)
-    return () => observer.disconnect()
-  }, [])
+    );
+    if (footerRef.current) observer.observe(footerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (footerRef.current) {
-      const rect = footerRef.current.getBoundingClientRect()
+      const rect = footerRef.current.getBoundingClientRect();
       setMousePosition({
         x: ((e.clientX - rect.left) / rect.width) * 100,
-        y: ((e.clientY - rect.top) / rect.height) * 100
-      })
+        y: ((e.clientY - rect.top) / rect.height) * 100,
+      });
     }
-  }
+  };
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      return
-    }
-    
-    setIsLoading(true)
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 800))
-    
-    setIsSubmitted(true)
-    setEmail("")
-    setIsLoading(false)
-    
-    setTimeout(() => setIsSubmitted(false), 3000)
-  }
+    e.preventDefault();
+    if (!email || !email.includes("@") || !email.includes(".")) return;
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    setIsSubmitted(true);
+    setEmail("");
+    setIsLoading(false);
+    setTimeout(() => setIsSubmitted(false), 3000);
+  };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleNavigate = (path: string) => {
-    router.push(path)
-  }
+    router.push(path);
+  };
 
   const servicesList = [
     { name: "Développement Web", icon: Code2, path: "/services", color: "#3b82f6" },
@@ -96,207 +112,316 @@ const Footer: React.FC = () => {
     { name: "Solutions SaaS", icon: Zap, path: "/services", color: "#10b981" },
     { name: "Design & UX/UI", icon: Brain, path: "/services", color: "#8b5cf6" },
     { name: "Conseil & Audit", icon: TrendingUp, path: "/services", color: "#ec4899" },
-  ]
+  ];
 
-  // Cloud icon component for missing import
-  const Cloud = ({ ...props }) => (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M17.5 19H9a3.5 3.5 0 0 1 0-7h.5A5.5 5.5 0 0 1 17 8.5a5.5 5.5 0 0 1 .5 10.5z"/>
-    </svg>
-  )
+  // Données structurées JSON-LD (organisation)
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "NEXOLIA CONSULTING",
+    url: "https://www.nexolia-consulting.com",
+    logo: "https://www.nexolia-consulting.com/logoNexo.png",
+    sameAs: [
+      "https://www.instagram.com/nexoliaconsulting/",
+      "https://www.facebook.com/profile.php?id=61589281981252",
+      "https://www.linkedin.com/in/med-wahbi-salwej-692b7a282/",
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+21623267646",
+      email: "contact@nexolia-consulting.com",
+      contactType: "customer service",
+      availableLanguage: ["French", "English", "Arabic"],
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Pôle Technologique El Ghazala",
+      addressLocality: "Ariana",
+      postalCode: "2088",
+      addressCountry: "TN",
+    },
+  };
 
   return (
-    <footer
-      ref={footerRef}
-      className={`footer-premium ${isVisible ? 'visible' : ''}`}
-      onMouseMove={handleMouseMove}
-      style={{
-        '--mouse-x': `${mousePosition.x}%`,
-        '--mouse-y': `${mousePosition.y}%`
-      } as React.CSSProperties}
-    >
-      {/* Light Ambient Background */}
-      <div className="bg-ambient-light">
-       
-      </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
+      <footer
+        ref={footerRef}
+        className={`footer-premium ${isVisible ? "visible" : ""}`}
+        onMouseMove={handleMouseMove}
+        style={
+          {
+            "--mouse-x": `${mousePosition.x}%`,
+            "--mouse-y": `${mousePosition.y}%`,
+          } as React.CSSProperties
+        }
+        aria-label="Pied de page"
+      >
+        {/* Arrière‑plan décoratif (masqué aux lecteurs d'écran) */}
+        <div className="bg-ambient-light" aria-hidden="true" />
+        <div className="pattern-overlay" aria-hidden="true" />
 
-      {/* Subtle Pattern */}
-      <div className="pattern-overlay"></div>
-
-      <div className="footer-container">
-        {/* AI Smart Banner */}
-        <div className="smart-banner">
-          <div className="banner-glow"></div>
-          <div className="smart-content">
-            <div className="ai-indicator">
-              <div className="ai-pulse"></div>
-              <Cpu className="ai-chip" />
-            </div>
-            <div className="typing-wrapper">
-              <span className="ai-label">AI</span>
-              <span className="typing-text">{typedText}</span>
-              <span className="cursor-blink">_</span>
-            </div>
-            <div className="banner-stats">
-              <div className="stat">
-                <span className="stat-number">128+</span>
-                <span className="stat-label">Projets</span>
+        <div className="footer-container">
+          {/* Bannière IA */}
+          <div className="smart-banner">
+            <div className="banner-glow" aria-hidden="true" />
+            <div className="smart-content">
+              <div className="ai-indicator" aria-hidden="true">
+                <div className="ai-pulse" />
+                <Cpu className="ai-chip" />
               </div>
-              <div className="stat-divider"></div>
-              <div className="stat">
-                <span className="stat-number">96+</span>
-                <span className="stat-label">Clients</span>
+              <div className="typing-wrapper" aria-label="Message d'innovation">
+                <span className="ai-label" aria-hidden="true">
+                  AI
+                </span>
+                <span className="typing-text">{typedText}</span>
+                <span className="cursor-blink" aria-hidden="true">
+                  _
+                </span>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Footer Grid */}
-        <div className="footer-grid">
-          {/* Brand Column */}
-          <div className="brand-col">
-            <div className="brand-wrapper">
-              <Link href="/" className="brand-link">
-                <Image src="/logoNexo.png" alt="NEXOLIA" width={180} height={60} className="brand-logo" />
-              </Link>
-              <div className="brand-glow"></div>
-            </div>
-            <p className="brand-desc">
-              Votre partenaire digital de confiance pour des solutions innovantes et performantes.
-            </p>
-            <div className="certifications">
-              <div className="cert-badge">
-                <Shield size={12} />
-                <span>RGPD</span>
-              </div>
-              <div className="cert-badge">
-                <Award size={12} />
-                <span>ISO 27001</span>
+              <div className="banner-stats" aria-label="Statistiques">
+                <div className="stat">
+                  <span className="stat-number">128+</span>
+                  <span className="stat-label">Projets</span>
+                </div>
+                <div className="stat-divider" aria-hidden="true" />
+                <div className="stat">
+                  <span className="stat-number">96+</span>
+                  <span className="stat-label">Clients</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Services Column */}
-          <div className="links-col">
-            <h4 className="col-title">
-              <code className="title-tag">&lt;services&gt;</code>
-              <div className="title-underline"></div>
-            </h4>
-            <ul className="links-list">
-              {servicesList.map((service, idx) => (
-                <li
-                  key={idx}
-                  className="link-item"
-                  onMouseEnter={() => setHoveredService(idx)}
-                  onMouseLeave={() => setHoveredService(null)}
-                  onClick={() => handleNavigate(service.path)}
-                >
-                  <div className="link-icon-wrapper" style={{ '--service-color': service.color } as React.CSSProperties}>
-                    <service.icon size={14} />
+          {/* Grille principale */}
+          <div className="footer-grid">
+            {/* Colonne marque */}
+            <div className="brand-col">
+              <div className="brand-wrapper">
+                <Link href="/" className="brand-link" aria-label="NEXOLIA Consulting, retour à l'accueil">
+                  <Image
+                    src="/logoNexo.png"
+                    alt="NEXOLIA Consulting - Agence IT Tunisie et France"
+                    width={180}
+                    height={60}
+                    className="brand-logo"
+                    priority={false}
+                  />
+                </Link>
+                <div className="brand-glow" aria-hidden="true" />
+              </div>
+              <p className="brand-desc">
+                Votre partenaire digital de confiance pour des solutions innovantes et performantes.
+              </p>
+              <div className="certifications">
+                <div className="cert-badge">
+                  <Shield size={12} aria-hidden="true" />
+                  <span>RGPD</span>
+                </div>
+                <div className="cert-badge">
+                  <Award size={12} aria-hidden="true" />
+                  <span>ISO 27001</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne Services */}
+            <div className="links-col">
+              <h4 className="col-title">
+                <code className="title-tag" aria-hidden="true">
+                  &lt;services&gt;
+                </code>
+                <div className="title-underline" aria-hidden="true" />
+                <span className="sr-only">Nos services</span>
+              </h4>
+              <ul className="links-list" aria-label="Liste de nos services">
+                {servicesList.map((service, idx) => (
+                  <li
+                    key={idx}
+                    className="link-item"
+                    onMouseEnter={() => setHoveredService(idx)}
+                    onMouseLeave={() => setHoveredService(null)}
+                    onClick={() => handleNavigate(service.path)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => e.key === "Enter" && handleNavigate(service.path)}
+                    aria-label={`En savoir plus sur ${service.name}`}
+                  >
+                    <div
+                      className="link-icon-wrapper"
+                      style={{ "--service-color": service.color } as React.CSSProperties}
+                      aria-hidden="true"
+                    >
+                      <service.icon size={14} />
+                    </div>
+                    <span>{service.name}</span>
+                    <ChevronRight
+                      size={14}
+                      className={`link-arrow ${hoveredService === idx ? "visible" : ""}`}
+                      aria-hidden="true"
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Colonne Entreprise */}
+            <div className="links-col">
+              <h4 className="col-title">
+                <code className="title-tag" aria-hidden="true">
+                  &lt;company&gt;
+                </code>
+                <div className="title-underline" aria-hidden="true" />
+                <span className="sr-only">Entreprise</span>
+              </h4>
+              <ul className="links-list" aria-label="Liens vers les pages entreprise">
+                <li onClick={() => handleNavigate("/about")} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && handleNavigate("/about")} aria-label="À propos de NEXOLIA">
+                  <div className="link-icon-wrapper" aria-hidden="true">
+                    <Smile size={14} />
                   </div>
-                  <span>{service.name}</span>
-                  <ChevronRight size={14} className={`link-arrow ${hoveredService === idx ? 'visible' : ''}`} />
+                  <span>À Propos</span>
+                  <ChevronRight size={14} className="link-arrow" aria-hidden="true" />
                 </li>
-              ))}
-            </ul>
-          </div>
+                <li onClick={() => handleNavigate("/portfolio")} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && handleNavigate("/portfolio")} aria-label="Carrières chez NEXOLIA">
+                  <div className="link-icon-wrapper" aria-hidden="true">
+                    <Coffee size={14} />
+                  </div>
+                  <span>Carrières</span>
+                  <ChevronRight size={14} className="link-arrow" aria-hidden="true" />
+                </li>
+                <li onClick={() => handleNavigate("/blog_news")} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && handleNavigate("/blog_news")} aria-label="Blog et actualités">
+                  <div className="link-icon-wrapper" aria-hidden="true">
+                    <Zap size={14} />
+                  </div>
+                  <span>Blog & News</span>
+                  <ChevronRight size={14} className="link-arrow" aria-hidden="true" />
+                </li>
+                <li onClick={() => handleNavigate("/contact")} role="button" tabIndex={0} onKeyDown={(e) => e.key === "Enter" && handleNavigate("/contact")} aria-label="Demander un devis gratuit">
+                  <div className="link-icon-wrapper" aria-hidden="true">
+                    <Shield size={14} />
+                  </div>
+                  <span>Passer votre devis gratuitement !</span>
+                  <ChevronRight size={14} className="link-arrow" aria-hidden="true" />
+                </li>
+              </ul>
+            </div>
 
-          {/* Company Column */}
-          <div className="links-col">
-            <h4 className="col-title">
-              <code className="title-tag">&lt;company&gt;</code>
-              <div className="title-underline"></div>
-            </h4>
-            <ul className="links-list">
-              <li onClick={() => handleNavigate("/about")}>
-                <div className="link-icon-wrapper"><Smile size={14} /></div>
-                <span>À Propos</span>
-                <ChevronRight size={14} className="link-arrow" />
-              </li>
-              <li onClick={() => handleNavigate("/portfolio")}>
-                <div className="link-icon-wrapper"><Coffee size={14} /></div>
-                <span>Carrières</span>
-                <ChevronRight size={14} className="link-arrow" />
-              </li>
-              <li onClick={() => handleNavigate("/blog_news")}>
-                <div className="link-icon-wrapper"><Zap size={14} /></div>
-                <span>Blog & News</span>
-                <ChevronRight size={14} className="link-arrow" />
-              </li>
-              <li onClick={() => handleNavigate("/contact")}>
-                <div className="link-icon-wrapper"><Shield size={14} /></div>
-                <span>Passer voutre devis gratuitement !</span>
-                <ChevronRight size={14} className="link-arrow" />
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Column */}
-          <div className="contact-col">
-            <h4 className="col-title">
-              <code className="title-tag">&lt;contact&gt;</code>
-              <div className="title-underline"></div>
-            </h4>
-            <ul className="contact-list">
-              <li>
-                <Mail size={14} />
-                <a href="mailto:contact@nexolia-consulting.com">contact@nexolia-consulting.com</a>
-              </li>
-               <li>
-                <Mail size={14} />
-                <a href="mailto:info@nexolia-consulting.com">info@nexolia-consulting.com</a>
-              </li>
-              <li>
-                <Phone size={14} />
-                <a href="tel:+21646384214">+216 46 384 214</a>
-              </li>
-              <li>
-                <Phone size={14} />
-                <a href="tel:+21692233647">+216 92 233 647</a>
-              </li>
-              <li>
-                <MapPin size={14} />
-                <span>Pôle Technologique El Ghazela</span>
-              </li>
-              <li>
-                <Clock size={14} />
-                <span>Lun - Ven: 8h00 - 17h00</span>
-              </li>
-            </ul>
-            <div className="social-group">
-              <div className="social-label">Follow us</div>
-              <div className="social-icons">
-                <a href="#" className="social-btn"><Linkedin size={14} /></a>
-                <a href="https://www.instagram.com/nexoliaconsulting/" className="social-btn"><Instagram size={14} /></a>
-                <a href="#" className="social-btn"><Twitter size={14} /></a>
-                <a href="https://www.facebook.com/profile.php?id=61589281981252" className="social-btn"><Facebook size={14} /></a>
+            {/* Colonne Contact */}
+            <div className="contact-col">
+              <h4 className="col-title">
+                <code className="title-tag" aria-hidden="true">
+                  &lt;contact&gt;
+                </code>
+                <div className="title-underline" aria-hidden="true" />
+                <span className="sr-only">Coordonnées</span>
+              </h4>
+              <ul className="contact-list" aria-label="Informations de contact">
+                <li>
+                  <Mail size={14} aria-hidden="true" />
+                  <a href="mailto:contact@nexolia-consulting.com" aria-label="Envoyer un email à contact@nexolia-consulting.com">
+                    contact@nexolia-consulting.com
+                  </a>
+                </li>
+                <li>
+                  <Mail size={14} aria-hidden="true" />
+                  <a href="mailto:info@nexolia-consulting.com" aria-label="Envoyer un email à info@nexolia-consulting.com">
+                    info@nexolia-consulting.com
+                  </a>
+                </li>
+                <li>
+                  <Phone size={14} aria-hidden="true" />
+                  <a href="tel:+21646384214" aria-label="Téléphone +216 46 384 214">
+                    +216 46 384 214
+                  </a>
+                </li>
+                <li>
+                  <Phone size={14} aria-hidden="true" />
+                  <a href="tel:+21692233647" aria-label="Téléphone +216 92 233 647">
+                    +216 92 233 647
+                  </a>
+                </li>
+                <li>
+                  <MapPin size={14} aria-hidden="true" />
+                  <span>Pôle Technologique El Ghazela</span>
+                </li>
+                <li>
+                  <Clock size={14} aria-hidden="true" />
+                  <span>Lun - Ven: 8h00 - 17h00</span>
+                </li>
+              </ul>
+              <div className="social-group">
+                <div className="social-label">Suivez-nous</div>
+                <div className="social-icons">
+                  <a
+                    href="https://www.linkedin.com/company/nexolia-consulting"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="LinkedIn NEXOLIA"
+                  >
+                    <Linkedin size={14} aria-hidden="true" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/nexoliaconsulting/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="Instagram NEXOLIA"
+                  >
+                    <Instagram size={14} aria-hidden="true" />
+                  </a>
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="Twitter NEXOLIA"
+                  >
+                    <Twitter size={14} aria-hidden="true" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61589281981252"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="Facebook NEXOLIA"
+                  >
+                    <Facebook size={14} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
+            </div>
+          </div>
+
+          {/* Newsletter (décommentez selon besoin) */}
+          {/* ... */}
+
+          {/* Bas de page */}
+          <div className="footer-bottom">
+            <div className="bottom-inner">
+              <p className="copyright">
+                <span>© {new Date().getFullYear()} NEXOLIA CONSULTING</span>
+                <span className="separator" aria-hidden="true">
+                  •
+                </span>
+                <span>Tous droits réservés</span>
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Newsletter Section - FIXED */}
-      
-
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <div className="bottom-inner">
-            <p className="copyright">
-              <span>© {new Date().getFullYear()} NEXOLIA CONSULTING</span>
-              <span className="separator">•</span>
-              <span>Tous droits réservés</span>
-            </p>
-           
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll to Top */}
-      <button className={`scroll-to-top ${isVisible ? 'show' : ''}`} onClick={scrollToTop}>
-        <ArrowUp size={18} />
-      </button>
-
-      <style jsx>{`
+        {/* Bouton retour haut de page */}
+        <button
+          className={`scroll-to-top ${isVisible ? "show" : ""}`}
+          onClick={scrollToTop}
+          aria-label="Retour en haut de page"
+        >
+          <ArrowUp size={18} aria-hidden="true" />
+        </button>
+ <style jsx>{`
         /* ========== PREMIUM FOOTER STYLES - LIGHT VERSION ========== */
         .footer-premium {
           position: relative;
@@ -1170,8 +1295,9 @@ const Footer: React.FC = () => {
   }
 }
       `}</style>
-    </footer>
-  )
-}
+      </footer>
+    </>
+  );
+};
 
-export default Footer
+export default Footer;

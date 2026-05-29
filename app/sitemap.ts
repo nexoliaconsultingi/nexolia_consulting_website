@@ -3,8 +3,7 @@ import { MetadataRoute } from "next"
 export const dynamic = "force-static"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://nexolia-consulting.com"
-
+const baseUrl = "https://www.nexolia-consulting.com"
   return [
     {
       url: baseUrl,
@@ -33,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/blog_news`,
       lastModified: new Date(),
-      changeFrequency: "daily",
+      changeFrequency: "weekly",
       priority: 0.7,
     },
     {

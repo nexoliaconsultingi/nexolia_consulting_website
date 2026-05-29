@@ -1,3 +1,4 @@
+
 // components/TechStack.tsx
 import React, { useState } from 'react';
 
@@ -19,7 +20,6 @@ const TechStack: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
-    // Couleurs de la palette
     const colors = {
         rose1: '#ab6077',
         rose2: '#b05f76',
@@ -29,7 +29,6 @@ const TechStack: React.FC = () => {
         cardBg: '#ffffff',
     };
 
-    // Catégories avec leurs icônes
     const categories: Category[] = [
         { id: 'all', name: 'Toutes', icon: '🎯', color: colors.sage },
         { id: 'frontend', name: 'Front-End', icon: '🎨', color: colors.rose1 },
@@ -40,8 +39,7 @@ const TechStack: React.FC = () => {
         { id: 'network', name: 'Infrastructure & Réseau', icon: '🔧', color: colors.sage },
     ];
 
-    // Base de données des technologies avec logos (URLs CDN)
-    const technologies: Technology[] = [
+     const technologies: Technology[] = [
         // Front-End
         {
             name: 'React',
@@ -265,20 +263,44 @@ const TechStack: React.FC = () => {
         }
     ];
 
-    // Filtrer les technologies par catégorie
     const filteredTechnologies = selectedCategory === 'all'
         ? technologies
         : technologies.filter(tech => tech.category === selectedCategory);
 
-    // Compter le nombre de technologies par catégorie
     const getCategoryCount = (categoryId: string) => {
         if (categoryId === 'all') return technologies.length;
         return technologies.filter(tech => tech.category === categoryId).length;
     };
 
+    // --- Données structurées JSON-LD ---
+    const structuredData = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Stack technologique',
+        description: 'Technologies maîtrisées par nos experts pour vos projets.',
+        numberOfItems: technologies.length,
+        itemListElement: technologies.map((tech, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+                '@type': 'SoftwareApplication',
+                name: tech.name,
+                description: tech.description,
+                applicationCategory: tech.category,
+                operatingSystem: 'All',
+                url: undefined, // vous pouvez ajouter un lien vers la page de la tech si besoin
+            },
+        })),
+    };
+
     return (
-        <div className="w-full py-12">
-            {/* En-tête de la section */}
+        <section aria-label="Notre stack technologique" className="w-full py-12">
+            {/* Données structurées (invisible pour les humains, lu par les robots) */}
+            <script type="application/ld+json">
+                {JSON.stringify(structuredData)}
+            </script>
+
+            {/* En-tête */}
             <div className="text-center mb-12">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.textPrimary }}>
                     Notre Stack Technologique
@@ -287,25 +309,26 @@ const TechStack: React.FC = () => {
                     Des technologies de pointe maîtrisées par nos experts pour vos projets
                 </p>
                 <div className="mt-4 h-1 w-20 mx-auto rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${colors.rose1}, ${colors.sage})` }}></div>
+                    style={{ background: `linear-gradient(90deg, ${colors.rose1}, ${colors.sage})` }} />
             </div>
 
-            {/* Filtres par catégorie */}
+            {/* Filtres */}
             <div className="flex flex-wrap justify-center gap-3 mb-12">
                 {categories.map((category) => {
                     const isActive = selectedCategory === category.id;
                     const count = getCategoryCount(category.id);
-
                     return (
                         <button
                             key={category.id}
                             onClick={() => setSelectedCategory(category.id)}
+                            aria-current={isActive ? 'page' : undefined}
+                            title={`Filtrer par ${category.name}`}
                             className="group px-5 py-2 rounded-full font-medium transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
                             style={{
                                 backgroundColor: isActive ? category.color : 'transparent',
                                 color: isActive ? 'white' : colors.textSecondary,
                                 border: `2px solid ${category.color}`,
-                                boxShadow: isActive ? `0 4px 12px ${category.color}40` : 'none'
+                                boxShadow: isActive ? `0 4px 12px ${category.color}40` : 'none',
                             }}
                         >
                             <span className="text-lg">{category.icon}</span>
@@ -313,7 +336,7 @@ const TechStack: React.FC = () => {
                             <span className="text-xs px-1.5 py-0.5 rounded-full"
                                 style={{
                                     backgroundColor: isActive ? 'rgba(255,255,255,0.2)' : `${category.color}20`,
-                                    color: isActive ? 'white' : category.color
+                                    color: isActive ? 'white' : category.color,
                                 }}>
                                 {count}
                             </span>
@@ -326,52 +349,47 @@ const TechStack: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                 {filteredTechnologies.map((tech, idx) => (
                     <div
-                        key={idx}
+                        key={`${tech.name}-${idx}`}
                         className="group relative p-4 rounded-xl transition-all duration-300 cursor-pointer"
                         style={{
                             backgroundColor: colors.cardBg,
                             border: `1px solid ${hoveredTech === tech.name ? colors.sage : '#e2e8f0'}`,
                             boxShadow: hoveredTech === tech.name ? `0 10px 25px -5px ${colors.sage}30` : '0 1px 3px rgba(0,0,0,0.05)',
-                            transform: hoveredTech === tech.name ? 'scale(1.05)' : 'scale(1)'
+                            transform: hoveredTech === tech.name ? 'scale(1.05)' : 'scale(1)',
                         }}
                         onMouseEnter={() => setHoveredTech(tech.name)}
                         onMouseLeave={() => setHoveredTech(null)}
                     >
-                        {/* Logo de la technologie */}
+                        {/* Logo optimisé */}
                         <div className="flex justify-center mb-3">
                             <div className="w-16 h-16 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
                                 <img
                                     src={tech.logo}
-                                    alt={`${tech.name} logo`}
+                                    alt={`Logo de ${tech.name} – technologie ${tech.category}`}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="max-w-full max-h-full object-contain"
                                     style={{ filter: hoveredTech === tech.name ? 'brightness(1.05)' : 'none' }}
                                 />
                             </div>
                         </div>
 
-                        {/* Nom de la technologie */}
+                        {/* Nom */}
                         <h3 className="text-center font-semibold mb-1" style={{ color: colors.textPrimary }}>
                             {tech.name}
                         </h3>
 
-                        {/* Description apparaît au hover */}
-                        <div className={`absolute left-0 right-0 bottom-full mb-2 p-2 rounded-lg text-xs text-center z-10 transition-all duration-300 pointer-events-none
-              ${hoveredTech === tech.name ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-                            style={{
-                                backgroundColor: colors.cardBg,
-                                border: `1px solid ${colors.sage}`,
-                                boxShadow: `0 4px 12px ${colors.sage}20`,
-                                color: colors.textSecondary
-                            }}>
+                        {/* Description VISIBLE (SEO + accessibilité) */}
+                        <p className="text-center text-xs mt-1 line-clamp-2" style={{ color: colors.textSecondary }}>
                             {tech.description}
-                        </div>
+                        </p>
 
                         {/* Indicateur de catégorie */}
                         <div className="mt-2 flex justify-center">
                             <span className="text-xs px-2 py-0.5 rounded-full"
                                 style={{
                                     backgroundColor: `${categories.find(c => c.id === tech.category)?.color}15`,
-                                    color: categories.find(c => c.id === tech.category)?.color
+                                    color: categories.find(c => c.id === tech.category)?.color,
                                 }}>
                                 {categories.find(c => c.id === tech.category)?.name}
                             </span>
@@ -380,7 +398,6 @@ const TechStack: React.FC = () => {
                 ))}
             </div>
 
-            {/* Message si aucun résultat */}
             {filteredTechnologies.length === 0 && (
                 <div className="text-center py-12">
                     <p className="text-lg" style={{ color: colors.textSecondary }}>
@@ -389,26 +406,40 @@ const TechStack: React.FC = () => {
                 </div>
             )}
 
-          
-
             <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .grid > div {
-          animation: fadeIn 0.3s ease-out forwards;
-        }
-      `}</style>
-        </div>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .grid > div {
+                    animation: fadeIn 0.3s ease-out forwards;
+                }
+                .line-clamp-2 {
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            `}</style>
+        </section>
     );
 };
 
 export default TechStack;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

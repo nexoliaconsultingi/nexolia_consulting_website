@@ -13,6 +13,12 @@ import {
   Code,
   Rocket,
   Folder,
+  Layers,
+  Building2,
+  Smartphone,
+  ShoppingCart,
+  BarChart3,
+  Globe,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -34,14 +40,53 @@ export default function PortfolioPage() {
     router.push("/portfolio")
   }
 
-  const filters = [
-    { id: "all", label: "Tous les Projets", icon: <Target className="w-4 h-4" /> },
-    { id: "web", label: "Applications Web", icon: <Code className="w-4 h-4" /> },
-    { id: "mobile", label: "Apps Mobile", icon: <Zap className="w-4 h-4" /> },
-    { id: "saas", label: "Solutions SaaS", icon: <Rocket className="w-4 h-4" /> },
-    { id: "ecommerce", label: "E-commerce", icon: <ExternalLink className="w-4 h-4" /> },
-    { id: "enterprise", label: "Enterprise", icon: <Users className="w-4 h-4" /> },
-  ]
+ const filters = [
+  {
+    id: "all",
+    label: "Tous les Projets",
+    icon: <Layers className="w-4 h-4" />,
+  },
+  {
+    id: "erp",
+    label: "ERP",
+    icon: <Building2 className="w-4 h-4" />,
+  },
+  {
+    id: "spfx",
+    label: "Solution Microsoft SPFX",
+    icon: <Code className="w-4 h-4" />,
+  },
+  {
+    id: "mobile",
+    label: "Apps Mobile",
+    icon: <Smartphone className="w-4 h-4" />,
+  },
+  {
+    id: "saas",
+    label: "Solutions SaaS",
+    icon: <Rocket className="w-4 h-4" />,
+  },
+  {
+    id: "ecommerce",
+    label: "E-commerce",
+    icon: <ShoppingCart className="w-4 h-4" />,
+  },
+  {
+    id: "enterprise",
+    label: "Enterprise",
+    icon: <Building2 className="w-4 h-4" />,
+  },
+  {
+    id: "bi",
+    label: "Power BI Dashboard",
+    icon: <BarChart3 className="w-4 h-4" />,
+  },
+  {
+    id: "WEB",
+    label: "Salon de coif",
+    icon: <Globe className="w-4 h-4" />,
+  },
+]
 
   // data/projects.ts
   interface Project {
@@ -67,7 +112,7 @@ export default function PortfolioPage() {
     {
       id: "geld-pilot",
       title: "Geld Pilot",
-      category: "erp",
+      category: "spfx",
       client: "TenStep",
       description:
         "ERP complet pour gérer les activités financières des PME/PMI via Power Apps, Power Automate, SPFx, Dataverse, Node.js et Flask Python. Gestion clients, factures, charges fixes et variables, revenus mensuels/annuels, résultats financiers et prédictions via IA. Inclut chatbots techniques et d'analyse de données, ainsi qu’un dashboard Power BI pour visualisation temps réel.",
@@ -138,34 +183,34 @@ export default function PortfolioPage() {
         metric3: { value: "98%", label: "Satisfaction client" }
       },
       captures: [
-        { src: "/erp/1.png", description: "test" },
-        { src: "/erp/2.png", description: "test" },
-        { src: "/erp/3.png", description: "test" },
-        { src: "/erp/4.png", description: "test" },
-        { src: "/erp/5.png", description: "test" },
-        { src: "/erp/6.png", description: "test" },
-        { src: "/erp/7.png", description: "test" },
-        { src: "/erp/8.png", description: "test" },
-        { src: "/erp/9.png", description: "test" },
-        { src: "/erp/10.png", description: "test" },
-        { src: "/erp/11.png", description: "test" },
-        { src: "/erp/12.png", description: "test" },
-        { src: "/erp/13.png", description: "test" },
-        { src: "/erp/14.png", description: "test" },
-        { src: "/erp/15.png", description: "test" },
-        { src: "/erp/16.png", description: "test" },
-        { src: "/erp/17.png", description: "test" },
-        { src: "/erp/18.png", description: "test" },
-        { src: "/erp/19.png", description: "test" },
-        { src: "/erp/20.png", description: "test" },
-        { src: "/erp/21.png", description: "test" },
-        { src: "/erp/22.png", description: "test" },
-        { src: "/erp/23.png", description: "test" },
-        { src: "/erp/24.png", description: "test" },
-        { src: "/erp/25.png", description: "test" },
-        { src: "/erp/26.png", description: "test" },
-        { src: "/erp/27.png", description: "test" },
-        { src: "/erp/28.png", description: "test" },
+        { src: "/erp/1.png", description: "" },
+        { src: "/erp/2.png", description: "" },
+        { src: "/erp/3.png", description: "" },
+        { src: "/erp/4.png", description: "" },
+        { src: "/erp/5.png", description: "" },
+        { src: "/erp/6.png", description: "" },
+        { src: "/erp/7.png", description: "" },
+        { src: "/erp/8.png", description: "" },
+        { src: "/erp/9.png", description: "" },
+        { src: "/erp/10.png", description: "" },
+        { src: "/erp/11.png", description: "" },
+        { src: "/erp/12.png", description: "" },
+        { src: "/erp/13.png", description: "" },
+        { src: "/erp/14.png", description: "" },
+        { src: "/erp/15.png", description: "" },
+        { src: "/erp/16.png", description: "" },
+        { src: "/erp/17.png", description: "" },
+        { src: "/erp/18.png", description: "" },
+        { src: "/erp/19.png", description: "" },
+        { src: "/erp/20.png", description: "" },
+        { src: "/erp/21.png", description: "" },
+        { src: "/erp/22.png", description: "" },
+        { src: "/erp/23.png", description: "" },
+        { src: "/erp/24.png", description: "" },
+        { src: "/erp/25.png", description: "" },
+        { src: "/erp/26.png", description: "" },
+        { src: "/erp/27.png", description: "" },
+        { src: "/erp/28.png", description: "" },
 
    
       ]
@@ -173,7 +218,7 @@ export default function PortfolioPage() {
     {
       id: "salon-coiffure",
       title: "Solution Salon de Coiffure",
-      category: "saas",
+      category: "WEB",
       client: "Beauté & Style",
       description:
         "Solution web responsive pour salons de coiffure avec système de réservation, gestion clients, personnel, produits, matériels, revenus et charges. Dashboard sécurisé pour la responsable permettant un contrôle total des activités.",
@@ -262,48 +307,198 @@ export default function PortfolioPage() {
         { src: "/mobileApp/10.png", description: "" },
       ]
     },
-    // {
-    //   id: "shop-ecommerce",
-    //   title: "ShopSphere - E-commerce",
-    //   category: "ecommerce",
-    //   client: "Fashion Forward",
-    //   description:
-    //     "Plateforme e-commerce omnicanale avec IA de recommandation et expérience d'achat immersive pour les clients.",
-    //   image: "/shop-sphere.png",
-    //   gradient: "from-green-500 to-teal-500",
-    //   features: ["IA Recommandation", "AR Try-On", "Omnichannel", "Analytics"],
-    //   technologies: ["Next.js", "Shopify Plus", "AI/ML", "Stripe", "TailwindCSS"],
-    //   results: {
-    //     metric1: { value: "150%", label: "Ventes" },
-    //     metric2: { value: "45%", label: "Conversion" },
-    //     metric3: { value: "2.3s", label: "Temps chargement" }
-    //   },
-    //   captures: [
-    //     { src: "/shop-1.png", description: "Page vitrine produits" },
-    //     { src: "/shop-2.png", description: "Page panier et paiement" }
-    //   ]
-    // },
-    // {
-    //   id: "web-design",
-    //   title: "Solutions Web et Vitrine",
-    //   category: "web",
-    //   client: "Divers clients",
-    //   description:
-    //     "Solutions web sur mesure pour différents projets incluant sites vitrines, pages web responsives, et applications interactives selon les besoins clients.",
-    //   image: "/web-design.png",
-    //   gradient: "from-indigo-500 to-purple-500",
-    //   features: ["Sites vitrines", "Web responsive", "Intégration API", "Animations interactives"],
-    //   technologies: ["React", "Next.js", "Node.js", "TailwindCSS", "Framer Motion"],
-    //   results: {
-    //     metric1: { value: "80+", label: "Sites livrés" },
-    //     metric2: { value: "95%", label: "Clients satisfaits" },
-    //     metric3: { value: "99%", label: "Disponibilité web" }
-    //   },
-    //   captures: [
-    //     { src: "/web-1.png", description: "Page vitrine responsive" },
-    //     { src: "/web-2.png", description: "Intégration API et formulaire" }
-    //   ]
-    // }
+    {
+  id: "expert-demenagement",
+  title: "Expert Déménagement Tunisie",
+  category: "enterprise",
+  client: "Agence de Déménagement Tunisie",
+  description:
+    "Système digital complet pour une agence de déménagement en Tunisie, incluant un site web optimisé SEO, une plateforme client et un dashboard administratif avancé pour la gestion des opérations, devis, facturation et suivi des clients. Le système intègre une authentification sécurisée avec reCAPTCHA, validation par code email, tokens signés et une interface entièrement responsive.",
+  image: "/expertDemenagement/2.png",
+  gradient: "from-blue-600 to-cyan-500",
+  features: [
+    "Dashboard administratif avancé",
+    "Gestion des devis et facturation",
+    "Signature électronique intégrée",
+    "Authentification sécurisée avec reCAPTCHA",
+    "Validation par code email",
+    "Gestion des clients et demandes",
+    "SEO optimisé",
+    "Responsive Design",
+    "Impression des documents en un clic",
+    "Système sécurisé avec tokens signés"
+  ],
+  technologies: [
+    "Next.js",
+    "React.js",
+    "Node.js",
+    "MongoDB",
+    "TailwindCSS",
+    "JWT",
+    "reCAPTCHA",
+    "Nodemailer",
+    "Cloudinary",
+    "TypeScript"
+  ],
+  results: {
+    metric1: { value: "95%", label: "Automatisation des opérations" },
+    metric2: { value: "1000+", label: "Demandes clients traitées" },
+    metric3: { value: "4.9/5", label: "Satisfaction clients" }
+  },
+  captures: [
+    { src: "/expertDemenagement/1.png", description: "" },
+    { src: "/expertDemenagement/2.png", description: "" },
+    { src: "/expertDemenagement/3.png", description: "" },
+    { src: "/expertDemenagement/4.png", description: "" },
+    { src: "/expertDemenagement/5.png", description: "" },
+    { src: "/expertDemenagement/6.png", description: "" },
+    { src: "/expertDemenagement/7.png", description: "" },
+    { src: "/expertDemenagement/8.png", description: "" },
+    { src: "/expertDemenagement/9.png", description: "" },
+    { src: "/expertDemenagement/10.png", description: "" }
+  ]
+},
+{
+  id: "powerbi-finance-dashboard",
+  title: "Dashboard Power BI Finance",
+  category: "bi",
+  client: "Entreprise Financière",
+  description:
+    "Dashboard Power BI professionnel dédié à l’analyse et au suivi des activités financières de l’entreprise. La solution permet de visualiser les revenus, charges, bénéfices, performances financières mensuelles et annuelles à travers des graphiques interactifs et des indicateurs intelligents pour améliorer la prise de décision.",
+
+  image: "/powerBI/1.png",
+  gradient: "from-green-500 to-emerald-700",
+
+  features: [
+    "Analyse des revenus et charges",
+    "Suivi financier mensuel et annuel",
+    "Graphiques interactifs Power BI",
+    "Indicateurs KPI en temps réel",
+    "Analyse des bénéfices et pertes",
+    "Rapports financiers automatisés",
+    "Comparaison des performances",
+    "Filtres dynamiques et exportation",
+    "Visualisation des tendances financières",
+    "Aide à la prise de décision stratégique"
+  ],
+
+  technologies: [
+    "Power BI",
+    "SQL Server",
+    "Excel",
+    "DAX",
+    "Power Query",
+    "Microsoft Azure",
+    "Data Analytics"
+  ],
+
+  results: {
+    metric1: {
+      value: "90%",
+      label: "Analyse financière automatisée"
+    },
+    metric2: {
+      value: "12M",
+      label: "Suivi mensuel des opérations"
+    },
+    metric3: {
+      value: "Real-Time",
+      label: "Visualisation des KPI"
+    }
+  },
+
+  captures: [
+    { src: "/powerBI/1.png", description: "" },
+    { src: "/powerBI/2.png", description: "" },
+    { src: "/powerBI/3.png", description: "" },
+    { src: "/powerBI/4.png", description: "" },
+    { src: "/powerBI/5.png", description: "" },
+    { src: "/powerBI/6.png", description: "" },
+    { src: "/powerBI/7.png", description: "" },
+    { src: "/powerBI/8.png", description: "" },
+
+  ]
+},
+{
+  id: "ecommerce-platform",
+  title: "Plateforme E-Commerce Intelligente avec Paiement en Ligne et Dashboard Administratif",
+  category: "ecommerce",
+
+  client: "Entreprise E-Commerce",
+
+  description:
+    "Plateforme E-Commerce moderne et hautement sécurisée permettant la vente en ligne avec intégration du système de paiement Stripe, authentification MFA (Multi-Factor Authentication), gestion avancée des utilisateurs, dashboard administratif intelligent et architecture optimisée SEO grâce au Server-Side Rendering (SSR) de Next.js. La solution offre une expérience utilisateur fluide, des performances élevées, une gestion multi-base de données ainsi qu’une infrastructure scalable adaptée aux grandes plateformes digitales.",
+
+  image: "/ecommerce/2.png",
+
+  gradient: "from-orange-500 to-red-700",
+
+  features: [
+    "Système de paiement sécurisé Stripe",
+    "Authentification MFA (Multi-Factor Authentication)",
+    "Dashboard administrateur intelligent",
+    "Gestion des produits et catégories",
+    "Gestion des commandes et livraisons",
+    "Gestion des clients et utilisateurs",
+    "SEO optimisé avec Server-Side Rendering Next.js",
+    "Architecture Multi Database Access",
+    "Recherche intelligente et filtres dynamiques",
+    "Système de notifications en temps réel",
+    "Gestion des promotions et coupons",
+    "Analytics et statistiques commerciales",
+    "Optimisation des performances et du chargement",
+    "Responsive Design Mobile & Desktop",
+    "Sécurité avancée et protection des données"
+  ],
+
+  technologies: [
+    "Next.js",
+    "React.js",
+    "Node.js",
+    "MongoDB",
+    "PostgreSQL",
+    "Prisma ORM",
+    "Stripe",
+    "JWT",
+    "MFA Security",
+    "Tailwind CSS",
+    "Redis",
+    "Docker",
+    "Vercel",
+    "TypeScript"
+  ],
+
+  results: {
+    metric1: {
+      value: "99.9%",
+      label: "Disponibilité de la plateforme"
+    },
+
+    metric2: {
+      value: "70%",
+      label: "Amélioration des performances SEO"
+    },
+
+    metric3: {
+      value: "Real-Time",
+      label: "Gestion des commandes et paiements"
+    }
+  },
+
+  captures: [
+    { src: "/ecommerce/1.png", description: "" },
+    { src: "/ecommerce/2.png", description: "" },
+    { src: "/ecommerce/3.png", description: "" },
+    { src: "/ecommerce/4.png", description: "" },
+    { src: "/ecommerce/5.png", description: "" },
+    { src: "/ecommerce/6.png", description: "" },
+    { src: "/ecommerce/7.png", description: "" },
+    { src: "/ecommerce/8.png", description: "" },
+    { src: "/ecommerce/9.png", description: "" },
+    { src: "/ecommerce/10.png", description: "" }
+  ]
+},
+  
   ];
 
 

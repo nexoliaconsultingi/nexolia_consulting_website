@@ -1,4 +1,3 @@
-// components/NexoliaPresentation.tsx
 import React, { useState } from 'react';
 import TechStack from './TechStack';
 import Link from 'next/link';
@@ -38,74 +37,74 @@ const NexoliaPresentation: React.FC = () => {
     }
   };
 
-  // Icônes professionnelles SVG
+  // Icônes professionnelles SVG avec accessibilité améliorée
   const icons = {
     rocket: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
     cloud: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
       </svg>
     ),
     strategy: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
     infrastructure: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
       </svg>
     ),
     shield: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
           d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
     check: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
       </svg>
     ),
     smile: (
-      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
     target: (
-      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
     building: (
-      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
       </svg>
     ),
     support: (
-      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
           d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m0 5.656l3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
       </svg>
     ),
     arrowRight: (
-      <svg className="w-5 h-5 inline-block ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-5 h-5 inline-block ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
       </svg>
     ),
     star: (
-      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
       </svg>
     )
@@ -182,8 +181,6 @@ const NexoliaPresentation: React.FC = () => {
     { value: '24/7', label: 'Support disponible', icon: icons.support },
   ];
 
-
-
   return (
     <div
       className="min-h-screen"
@@ -232,18 +229,16 @@ const NexoliaPresentation: React.FC = () => {
                 }}
               >
                 <span>Démarrer un projet</span>
-
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                   {icons.arrowRight}
                 </span>
               </Link>
-
             </div>
           </div>
         </header>
 
         {/* Description Section */}
-        <section className="mb-20" id="about">
+        <section className="mb-20" id="about" aria-labelledby="about-heading">
           <div className="rounded-3xl p-8 md:p-12 transition-all duration-500 hover:shadow-2xl"
             style={{
               backgroundColor: colors.cardBg,
@@ -251,11 +246,11 @@ const NexoliaPresentation: React.FC = () => {
             }}>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6 flex items-center"
+                <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-6 flex items-center"
                   style={{ color: colors.textPrimary }}>
                   <span className="w-10 h-10 rounded-full flex items-center justify-center mr-3"
                     style={{ background: `linear-gradient(135deg, ${colors.accents.rose1}, ${colors.accents.sage})` }}>
-                    <span style={{ color: 'white', fontSize: '1.2rem' }}>✨</span>
+                    <span style={{ color: 'white', fontSize: '1.2rem' }} aria-hidden="true">✨</span>
                   </span>
                   Qui sommes-nous ?
                 </h2>
@@ -272,6 +267,15 @@ const NexoliaPresentation: React.FC = () => {
                   , <strong style={{ color: colors.accents.sage }}>conseil stratégique</strong> et
                   accompagnement humain pour garantir la réussite de vos projets.
                 </p>
+                {/* Lien interne vers la page des services */}
+                <div className="mt-6">
+                  <Link href="/services" className="inline-flex items-center text-sm font-semibold group" style={{ color: colors.accents.sage }}>
+                    Découvrir tous nos services
+                    <span className="ml-1 transition-transform duration-200 group-hover:translate-x-1">
+                      {icons.arrowRight}
+                    </span>
+                  </Link>
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {statistics.map((stat, idx) => (
@@ -295,9 +299,9 @@ const NexoliaPresentation: React.FC = () => {
         </section>
 
         {/* Services Grid */}
-        <section className="mb-20" id="services">
+        <section className="mb-20" id="services" aria-labelledby="services-heading">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.textPrimary }}>
+            <h2 id="services-heading" className="text-3xl md:text-4xl font-bold mb-4" style={{ color: colors.textPrimary }}>
               Nos Services
             </h2>
             <p className="text-xl" style={{ color: colors.textSecondary }}>
@@ -373,14 +377,13 @@ const NexoliaPresentation: React.FC = () => {
         </section>
 
         {/* Section Notre Force */}
-        <section className="mb-20">
+        <section className="mb-20" id="force" aria-labelledby="force-heading">
           <div className="rounded-3xl p-8 md:p-12 relative overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${colors.accents.rose1}08, ${colors.accents.sage}08)`,
               border: `1px solid ${colors.accents.rose1}20`
             }}>
-
-            <div className="absolute top-0 right-0 w-64 h-64 opacity-5">
+            <div className="absolute top-0 right-0 w-64 h-64 opacity-5" aria-hidden="true">
               <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path fill={colors.accents.rose1} d="M69.5,-58.2C87.5,-40.1,96.6,-14.8,92.4,8.5C88.2,31.8,70.7,53.1,49.2,66.3C27.7,79.5,2.2,84.6,-21.5,76.7C-45.2,68.8,-67.1,47.9,-75.4,22.9C-83.7,-2.1,-78.4,-31.2,-62.3,-49.3C-46.2,-67.4,-19.4,-74.5,5.6,-78.8C30.6,-83.1,51.5,-76.3,69.5,-58.2Z" transform="translate(100 100)" />
               </svg>
@@ -389,7 +392,7 @@ const NexoliaPresentation: React.FC = () => {
             <div className="relative z-10">
               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="flex-1">
-                  <h2 className="text-3xl font-bold mb-6 flex items-center" style={{ color: colors.textPrimary }}>
+                  <h2 id="force-heading" className="text-3xl font-bold mb-6 flex items-center" style={{ color: colors.textPrimary }}>
                     <span className="w-10 h-10 rounded-full flex items-center justify-center mr-3"
                       style={{ background: `linear-gradient(135deg, ${colors.accents.rose1}, ${colors.accents.rose2})` }}>
                       {icons.shield}
@@ -407,7 +410,6 @@ const NexoliaPresentation: React.FC = () => {
                     pour accompagner durablement les entreprises vers la performance.
                   </p>
                 </div>
-
                 <div className="flex-shrink-0 flex gap-3">
                   <div className="text-center p-4 rounded-xl min-w-[120px] transition-all hover:scale-105"
                     style={{ backgroundColor: `${colors.accents.rose1}15`, border: `1px solid ${colors.accents.rose1}30` }}>
@@ -425,10 +427,11 @@ const NexoliaPresentation: React.FC = () => {
           </div>
         </section>
 
-        {/* Technologies Section */}
-        <TechStack />
-
-        
+        {/* Technologies Section – avec heading pour le SEO */}
+        <section id="technologies" aria-labelledby="tech-heading">
+         
+          <TechStack />
+        </section>
       </div>
 
       <style>{`

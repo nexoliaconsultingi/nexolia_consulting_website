@@ -1,10 +1,8 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import {
-
   Mail,
   Clock,
   Award,
@@ -19,7 +17,7 @@ import {
   ChevronUp,
   Layers
 } from "lucide-react"
- 
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
@@ -47,37 +45,34 @@ export default function ContactPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
 
   const stats = [
-    { number: "24h", label: "Temps de réponse moyen", icon: <Clock className="w-6 h-6" /> },
-    { number: "98%", label: "Clients satisfaits", icon: <Award className="w-6 h-6" /> },
-    { number: "2", label: "Solutions SaaS", icon: <Layers className="w-6 h-6" /> },
-    { number: "9", label: "Clients PME & PMI", icon: <Users className="w-6 h-6" /> },
+    { number: "24h", label: "Temps de réponse moyen", icon: <Clock className="w-6 h-6" aria-hidden="true" /> },
+    { number: "98%", label: "Clients satisfaits", icon: <Award className="w-6 h-6" aria-hidden="true" /> },
+    { number: "2", label: "Solutions SaaS", icon: <Layers className="w-6 h-6" aria-hidden="true" /> },
+    { number: "9", label: "Clients PME & PMI", icon: <Users className="w-6 h-6" aria-hidden="true" /> },
   ]
-
 
   const whyChooseUs = [
     {
-      icon: <Shield className="w-8 h-8" />,
+      icon: <Shield className="w-8 h-8" aria-hidden="true" />,
       title: "Confidentialité Garantie",
       description: "Vos données et projets sont protégés par des accords de confidentialité stricts.",
     },
     {
-      icon: <Zap className="w-8 h-8" />,
+      icon: <Zap className="w-8 h-8" aria-hidden="true" />,
       title: "Réponse Rapide",
       description: "Notre équipe vous répond dans les 24h, même le weekend pour les urgences.",
     },
     {
-      icon: <HeadphonesIcon className="w-8 h-8" />,
+      icon: <HeadphonesIcon className="w-8 h-8" aria-hidden="true" />,
       title: "Support Dédié",
       description: "Un chef de projet dédié vous accompagne tout au long de votre parcours.",
     },
     {
-      icon: <Globe className="w-8 h-8" />,
+      icon: <Globe className="w-8 h-8" aria-hidden="true" />,
       title: "Expertise Internationale",
       description: "Notre équipe multiculturelle comprend vos enjeux locaux et internationaux.",
     },
   ]
-
-
 
   const faqs = [
     {
@@ -112,16 +107,15 @@ export default function ContactPage() {
     },
   ]
 
-
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
       <NavBar />
 
       {/* Hero */}
-      <section className="relative py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#53828a]/5 via-white to-[#b05f76]/5 overflow-hidden">
-        {/* Animated Background Elements */}
+      <section
+        className="relative py-12 sm:py-16 lg:py-24 bg-gradient-to-br from-[#53828a]/5 via-white to-[#b05f76]/5 overflow-hidden"
+        aria-labelledby="hero-heading"
+      >
         <div className="absolute top-10 left-10 w-72 h-72 bg-[#53828a]/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#b05f76]/10 rounded-full blur-3xl animate-pulse delay-1000" />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-[#53828a]/5 to-[#b05f76]/5 rounded-full blur-2xl" />
@@ -129,11 +123,11 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-[#53828a] to-[#b05f76] border-0 mb-8">
-              <Users className="w-5 h-5 text-white mr-3" />
+              <Users className="w-5 h-5 text-white mr-3" aria-hidden="true" />
               <span className="text-white font-semibold">Parlons de votre projet</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-7xl font-bold text-[#53828a] mb-6 sm:mb-8 leading-tight">
+            <h1 id="hero-heading" className="text-3xl sm:text-4xl lg:text-7xl font-bold text-[#53828a] mb-6 sm:mb-8 leading-tight">
               Contactez-
               <span className="bg-gradient-to-r from-[#53828a] via-[#b05f76] to-[#53828a] bg-clip-text text-transparent animate-pulse">
                 Nous
@@ -144,27 +138,59 @@ export default function ContactPage() {
               Transformons ensemble vos idées en solutions digitales exceptionnelles. Notre équipe d'experts vous
               accompagne à chaque étape de votre projet.
             </p>
+          </div>
+        </div>
+      </section>
 
-          
+      {/* Section Statistiques */}
+      <section className="py-16 bg-white" aria-labelledby="stats-heading">
+        <div className="container mx-auto px-4">
+          <h2 id="stats-heading" className="text-2xl sm:text-3xl font-bold text-center text-[#53828a] mb-12">
+            Nos chiffres clés
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#53828a] to-[#b05f76] flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                  {stat.icon}
+                </div>
+                <div className="text-3xl lg:text-4xl font-bold text-[#53828a] mb-2">{stat.number}</div>
+                <div className="text-[#727683] font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Formulaire + ContactInfo */}
+      <ContactForm />
+      <ContactInfo />
+
+      {/* Section Pourquoi nous choisir */}
+      <section className="py-16 bg-gradient-to-br from-[#53828a]/5 to-[#b05f76]/5" aria-labelledby="why-heading">
+        <div className="container mx-auto px-4">
+          <h2 id="why-heading" className="text-2xl sm:text-3xl font-bold text-center text-[#53828a] mb-12">
+            Pourquoi nous choisir ?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {whyChooseUs.map((item, idx) => (
+              <Card key={idx} className="border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-[#53828a] to-[#b05f76] flex items-center justify-center text-white">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-[#53828a] mb-2">{item.title}</h3>
+                  <p className="text-[#727683]">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       
 
-
-      {/* Contact Section */}
-      <ContactForm />
-
-
-      <ContactInfo/>
-
-
-
-         {/* CTA Section */}
       <SurFooter />
-
-      {/* Footer */}
       <Footer />
     </div>
   )

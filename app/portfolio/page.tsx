@@ -2,23 +2,31 @@
 import type { Metadata } from "next"
 import PortfolioContent from "../../components/PortfolioContent"
 
-// 1. Métadonnées riches basées sur les réalisations réelles de votre boîte
+// Métadonnées enrichies
 export const metadata: Metadata = {
   title: "Notre Portfolio | Réalisations ERP, Plateformes SaaS & Projets Microsoft",
   description: "Découvrez les études de cas de NEXOLIA CONSULTING : ERP financiers intelligents (Power Apps, SPFx, Power BI), systèmes de gestion médicale sur-mesure et solutions SaaS responsives déployées en France et Tunisie.",
   alternates: {
-    canonical: "nexolia-consulting.com",
+    canonical: "https://www.nexolia-consulting.com/portfolio", // URL canonique absolue
   },
   openGraph: {
-    title: "Portfolio NEXOLIA CONSULTING  | Nos Projets et Applications Développées",
+    title: "Portfolio NEXOLIA CONSULTING | Nos Projets et Applications Développées",
     description: "Explorez nos succès clients : intégrations d'écosystèmes cloud, automatisations complexes et architectures logicielles scalables.",
-    url: "nexolia-consulting.com",
-  }
+    url: "https://www.nexolia-consulting.com/portfolio",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 }
 
 export default function PortfolioPage() {
-  // 2. Schéma de données structurées JSON-LD combinant vos projets informatiques majeurs
-  // 2. Schéma de données structurées JSON-LD combinant l'intégralité de vos projets informatiques
+  // Données structurées JSON-LD (inchangées, mais toujours valides)
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -31,7 +39,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "nexolia-consulting.com"
+          "url": "https://www.nexolia-consulting.com"
         }
       },
       {
@@ -43,7 +51,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "nexolia-consulting.com"
+          "url": "https://www.nexolia-consulting.com"
         }
       },
       {
@@ -55,7 +63,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "nexolia-consulting.com"
+          "url": "https://www.nexolia-consulting.com"
         }
       },
       {
@@ -67,7 +75,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "nexolia-consulting.com"
+          "url": "https://wwW.nexolia-consulting.com"
         }
       },
       {
@@ -79,7 +87,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "nexolia-consulting.com"
+          "url": "https://www.nexolia-consulting.com"
         }
       }
     ]
@@ -87,12 +95,23 @@ export default function PortfolioPage() {
 
   return (
     <>
-      {/* Injection immédiate du catalogue de réalisations logicielles pour Google */}
+      {/* Données structurées pour les moteurs de recherche */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <PortfolioContent />
+
+      {/* Contenu principal avec balises sémantiques */}
+      <main id="main-content" className="min-h-screen">
+        {/* Titre principal invisible mais présent pour la hiérarchie SEO */}
+        <h1 className="sr-only">Portfolio des réalisations NEXOLIA CONSULTING - Projets ERP, SaaS et applications mobiles</h1>
+        
+        {/* Section portfolio avec étiquette accessible */}
+        <section aria-labelledby="portfolio-heading">
+          <h2 id="portfolio-heading" className="sr-only">Liste complète de nos projets et études de cas</h2>
+          <PortfolioContent />
+        </section>
+      </main>
     </>
   )
 }

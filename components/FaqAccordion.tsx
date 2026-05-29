@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, HelpCircle, X, ChevronLeft, ChevronRight, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 interface FaqItem {
   id: number;
@@ -42,23 +45,18 @@ const faqData: FaqItem[] = [
 
 const ITEMS_PER_PAGE = 3;
 
-// --- Tableau de plusieurs images pour le diaporama (toutes liées aux dashboards / analytics) ---
 const imageUrls = [
-  "/webmobile/webC.png",
-  "/designmontage/4.png",
-  "/bi/3.png",
-  "/spfx/8.png",
-  "/spfx/9.png",
-  "/spfx/6.png",
-  "/erp/25.png",
-  "/erp/6.png",
-  "/saas/saas3.webp",
-  "/saas/saas4.webp",
-  "/pwa/3.png"
-
-
-
-
+  '/webmobile/webC.png',
+  '/designmontage/4.png',
+  '/bi/3.png',
+  '/spfx/8.png',
+  '/spfx/9.png',
+  '/spfx/6.png',
+  '/erp/25.png',
+  '/erp/6.png',
+  '/saas/saas3.webp',
+  '/saas/saas4.webp',
+  '/pwa/3.png',
 ];
 
 const FaqAccordion: React.FC = () => {
@@ -66,20 +64,13 @@ const FaqAccordion: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [contentHeights, setContentHeights] = useState<{ [key: number]: number }>({});
   const contentRefs = useRef<{ [key: number]: HTMLDivElement | null }>({});
-
-  // Nouvel état pour l'image courante (diaporama spontané)
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const [particles, setParticles] = useState<Array<{
-    style: React.CSSProperties;
-  }>>([]);
-
-  // État pour la modale
+  const [particles, setParticles] = useState<Array<React.CSSProperties>>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', question: '' });
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // Calcul des hauteurs pour l'animation fluide
+  // Mesure des hauteurs pour l'animation
   useEffect(() => {
     const heights: { [key: number]: number } = {};
     Object.keys(contentRefs.current).forEach((key) => {
@@ -91,42 +82,47 @@ const FaqAccordion: React.FC = () => {
     setContentHeights(heights);
   }, [currentPage, openId]);
 
-  const toggle = (id: number) => {
-    setOpenId(openId === id ? null : id);
-  };
-
-  // Générer les particules une seule fois après le montage
+  // Génération des particules (stable pour l'hydratation)
   useEffect(() => {
     const newParticles = Array.from({ length: 30 }).map(() => ({
-      style: {
-        width: Math.random() * 4 + 2 + 'px',
-        height: Math.random() * 4 + 2 + 'px',
-        top: Math.random() * 100 + '%',
-        left: Math.random() * 100 + '%',
-        animation: `float ${Math.random() * 10 + 5}s infinite alternate`,
-        opacity: Math.random() * 0.5 + 0.2,
-      },
+      width: Math.random() * 4 + 2,
+      height: Math.random() * 4 + 2,
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      duration: Math.random() * 10 + 5,
+      opacity: Math.random() * 0.5 + 0.2,
     }));
-    setParticles(newParticles);
+    setParticles(
+      newParticles.map((p) => ({
+        position: 'absolute' as const,
+        width: `${p.width}px`,
+        height: `${p.height}px`,
+        top: `${p.top}%`,
+        left: `${p.left}%`,
+        opacity: p.opacity,
+        background: 'white',
+        borderRadius: '9999px',
+        animation: `float ${p.duration}s infinite alternate`,
+      }))
+    );
   }, []);
 
-  // --- Gestion du diaporama : changement d'image toutes les 4 secondes (intervalle spontané) ---
+  // Diaporama d'images
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Sélection aléatoire d'un index différent de l'actuel (pour un vrai changement "spontané")
+    const interval = setInterval(() => {
       let newIndex;
       do {
         newIndex = Math.floor(Math.random() * imageUrls.length);
       } while (newIndex === currentImageIndex && imageUrls.length > 1);
       setCurrentImageIndex(newIndex);
-    }, 4000); // Change toutes les 4 secondes, vous pouvez ajuster la durée
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    return () => clearInterval(intervalId);
-  }, [currentImageIndex]); // Recrée l'intervalle si l'index change, mais ce n'est pas nécessaire. On peut mettre [] pour le créer une fois et ne pas dépendre de currentImageIndex. Cependant, pour éviter une boucle, on garde [] car setCurrentImageIndex n'a pas besoin de dépendance. Correction: mettre [] pour ne le lancer qu'au montage.
-  // Correction : l'effet avec [currentImageIndex] va relancer l'intervalle à chaque changement, ce qui n'est pas idéal. On va plutôt le lancer une seule fois.
-  // Je réécris proprement après : voir plus bas dans le code final. (Je vais garder un seul useEffect avec [])
+  const toggle = (id: number) => {
+    setOpenId(openId === id ? null : id);
+  };
 
-  // Pagination
   const totalPages = Math.ceil(faqData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = faqData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -140,34 +136,7 @@ const FaqAccordion: React.FC = () => {
     setOpenId(null);
   };
 
-  // Ripple effect
-  const handleRipple = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
-    const button = e.currentTarget;
-    const ripple = document.createElement('span');
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-    const x = e.clientX - rect.left - size / 2;
-    const y = e.clientY - rect.top - size / 2;
-    ripple.style.cssText = `
-      position: absolute;
-      width: ${size}px;
-      height: ${size}px;
-      background: radial-gradient(circle, rgba(155,89,109,0.4) 0%, rgba(77,118,124,0.2) 100%);
-      border-radius: 50%;
-      top: ${y}px;
-      left: ${x}px;
-      pointer-events: none;
-      transform: scale(0);
-      animation: rippleAnim 0.6s ease-out;
-    `;
-    button.style.position = 'relative';
-    button.style.overflow = 'hidden';
-    button.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600);
-    toggle(id);
-  };
-
-  // Gestion formulaire modal
+  // Gestion du formulaire modal
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -179,6 +148,7 @@ const FaqAccordion: React.FC = () => {
       setTimeout(() => setSubmitStatus('idle'), 3000);
       return;
     }
+    // Logique d'envoi (à connecter à votre API)
     console.log('Formulaire soumis :', formData);
     setSubmitStatus('success');
     setFormData({ name: '', email: '', question: '' });
@@ -188,21 +158,290 @@ const FaqAccordion: React.FC = () => {
     }, 2000);
   };
 
-  // Effet pour le diaporama spontané (une seule fois au montage)
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      let newIndex;
-      do {
-        newIndex = Math.floor(Math.random() * imageUrls.length);
-      } while (newIndex === currentImageIndex && imageUrls.length > 1);
-      setCurrentImageIndex(newIndex);
-    }, 4000);
-    return () => clearInterval(intervalId);
-  }, []); // Exécuté une seule fois, pas de dépendance à currentImageIndex pour éviter les réinitialisations intempestives
+  // JSON-LD pour FAQPage
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqData.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
 
   return (
     <>
-      <style>{`
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <section
+        className="relative min-h-screen bg-gradient-to-br from-[#0a0a1a] via-[#141428] to-[#1a1a2e] py-20 lg:py-28 overflow-hidden"
+        aria-labelledby="faq-heading"
+      >
+        {/* Arrière‑plan animé */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#9b596d]/20 rounded-full blur-[100px] animate-float-fast" />
+          <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-[#4d767c]/20 rounded-full blur-[120px] animate-float-slow" />
+          <div className="absolute top-2/3 left-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-[80px] animate-float-fast" />
+          {particles.map((style, i) => (
+            <div key={i} className="absolute rounded-full bg-white/30" style={style} />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* En-tête */}
+          <div className="text-center mb-12 md:mb-16 animate-fade-up">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full border border-white/20 shadow-lg mb-4">
+              <HelpCircle size={18} className="text-[#ffb7c5]" aria-hidden="true" />
+              <span className="text-[#ffb7c5] font-semibold text-sm tracking-wide">FAQ — On vous dit tout</span>
+            </div>
+            <h2 id="faq-heading" className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+              <span className="bg-gradient-to-r from-[#ffb7c5] via-[#f5a97f] to-[#8bd3c7] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradientShift">
+                Vos questions, nos réponses
+              </span>
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-[#9b596d] via-[#4d767c] to-[#f5a97f] mx-auto mt-5 rounded-full" aria-hidden="true" />
+            <p className="mt-6 text-gray-300 text-lg max-w-2xl mx-auto backdrop-blur-sm">
+              Transparence totale sur nos méthodes, délais et tarifs. Une équipe à votre écoute.
+            </p>
+          </div>
+
+          {/* Deux colonnes */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            {/* Colonne gauche : image changeante */}
+            <div className="lg:w-5/12 animate-fade-up" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+              <div className="sticky top-8 space-y-6">
+                <div className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 image-pulse">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#9b596d]/30 to-[#4d767c]/30 mix-blend-overlay" aria-hidden="true" />
+                  <Image
+                    src={imageUrls[currentImageIndex]}
+                    alt="Exemple de tableau de bord Power BI et analytics – visualisation de données"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+                    unoptimized // car images locales dans /public
+                    priority={false}
+                  />
+                </div>
+                <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
+                  <h3 className="text-xl font-bold text-white mb-2">Pourquoi faire confiance à Nexolia ?</h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Forts de plus de 10 ans d’expertise en data visualisation et développement sur mesure,
+                    nous transformons vos données en leviers de croissance. Chaque projet est unique,
+                    agile et pensé pour évoluer avec vous.
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-[#ffb7c5] text-sm">
+                    <span className="w-2 h-2 bg-[#ffb7c5] rounded-full" aria-hidden="true" />
+                    <span>+50 clients satisfaits</span>
+                    <span className="w-2 h-2 bg-[#ffb7c5] rounded-full" aria-hidden="true" />
+                    <span>100% sur mesure</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne droite : FAQ paginée */}
+            <div className="lg:w-7/12 space-y-6">
+              {currentItems.map((item, idx) => {
+                const isOpen = openId === item.id;
+                const height = isOpen ? contentHeights[item.id] : 0;
+                return (
+                  <div
+                    key={item.id}
+                    className="faq-item animate-fade-up"
+                    style={{ animationDelay: `${0.15 + idx * 0.07}s`, animationFillMode: 'forwards' }}
+                  >
+                    <div className="relative bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 transition-all duration-300 card-glow overflow-hidden">
+                      <button
+                        onClick={() => toggle(item.id)}
+                        className="relative w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffb7c5] transition-all duration-200 group"
+                        aria-expanded={isOpen}
+                        aria-controls={`faq-answer-${item.id}`}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="hidden sm:block w-8 h-8 rounded-full bg-gradient-to-tr from-[#9b596d] to-[#4d767c] flex-shrink-0 mt-0.5 shadow-lg" aria-hidden="true" />
+                          <h3 className="text-gray-100 font-semibold text-base md:text-lg pr-4 group-hover:text-[#ffb7c5] transition-colors duration-200">
+                            {item.question}
+                          </h3>
+                        </div>
+                        <div
+                          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500 ${
+                            isOpen
+                              ? 'bg-[#9b596d] text-white rotate-90 scale-110'
+                              : 'bg-white/10 text-[#ffb7c5] group-hover:bg-white/20 group-hover:rotate-12'
+                          }`}
+                        >
+                          {isOpen ? <X size={18} aria-hidden="true" /> : <ChevronDown size={18} aria-hidden="true" />}
+                        </div>
+                      </button>
+
+                      <div
+                        id={`faq-answer-${item.id}`}
+                        role="region"
+                        aria-labelledby={`faq-question-${item.id}`}
+                        className="transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] overflow-hidden"
+                        style={{ height: `${height}px` }}
+                      >
+                        <div
+                          ref={(el) => {
+                            contentRefs.current[item.id] = el;
+                          }}
+                          className="px-5 md:px-6 pb-5 md:pb-6"
+                        >
+                          <div className="border-t border-white/10 pt-4">
+                            <p className="text-gray-200 leading-relaxed text-base md:text-md">
+                              {item.answer}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center gap-4 mt-8">
+                  <button
+                    onClick={goToPrevPage}
+                    disabled={currentPage === 1}
+                    className={`p-2 rounded-full transition-all duration-200 ${
+                      currentPage === 1
+                        ? 'bg-white/5 text-gray-500 cursor-not-allowed'
+                        : 'bg-white/10 text-[#ffb7c5] hover:bg-white/20 hover:scale-105'
+                    }`}
+                    aria-label="Page précédente des questions fréquentes"
+                  >
+                    <ChevronLeft size={24} aria-hidden="true" />
+                  </button>
+                  <span className="text-gray-200 text-sm">
+                    Page {currentPage} sur {totalPages}
+                  </span>
+                  <button
+                    onClick={goToNextPage}
+                    disabled={currentPage === totalPages}
+                    className={`p-2 rounded-full transition-all duration-200 ${
+                      currentPage === totalPages
+                        ? 'bg-white/5 text-gray-500 cursor-not-allowed'
+                        : 'bg-white/10 text-[#ffb7c5] hover:bg-white/20 hover:scale-105'
+                    }`}
+                    aria-label="Page suivante des questions fréquentes"
+                  >
+                    <ChevronRight size={24} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
+
+              {/* Call to action modale */}
+              <div className="mt-8 text-center bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 transition-all hover:bg-white/10">
+                <p className="text-gray-200 text-sm">
+                  🤔 Une question plus personnelle ?{' '}
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="text-[#ffb7c5] font-semibold hover:underline decoration-wavy underline-offset-4 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] rounded"
+                  >
+                    Écrivez‑nous directement
+                  </button>{' '}
+                  – réponse garantie sous 24h.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MODALE DE CONTACT (accessible) */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-all duration-300"
+          onClick={() => setIsModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-contact-title"
+        >
+          <div
+            className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl animate-modal overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-[#9b596d]/10 to-[#4d767c]/10 pointer-events-none" aria-hidden="true" />
+            <div className="relative p-6">
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2">
+                  <Mail className="text-[#ffb7c5]" size={24} aria-hidden="true" />
+                  <h3 id="modal-contact-title" className="text-xl font-bold text-white">Contactez-nous</h3>
+                </div>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="text-gray-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] rounded-full p-1"
+                  aria-label="Fermer la fenêtre"
+                >
+                  <X size={20} aria-hidden="true" />
+                </button>
+              </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="modal-name" className="block text-sm font-medium text-gray-200 mb-1">Nom complet</label>
+                  <input
+                    id="modal-name"
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all"
+                    placeholder="Jean Dupont"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="modal-email" className="block text-sm font-medium text-gray-200 mb-1">Adresse email</label>
+                  <input
+                    id="modal-email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all"
+                    placeholder="jean@example.com"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="modal-question" className="block text-sm font-medium text-gray-200 mb-1">Votre question</label>
+                  <textarea
+                    id="modal-question"
+                    name="question"
+                    rows={3}
+                    value={formData.question}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all resize-none"
+                    placeholder="Décrivez votre besoin ou votre question..."
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full py-2 px-4 bg-gradient-to-r from-[#9b596d] to-[#4d767c] text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#ffb7c5]"
+                >
+                  Envoyer
+                </button>
+                {submitStatus === 'success' && (
+                  <p className="text-green-300 text-sm text-center" role="status">✓ Message envoyé ! Nous vous répondrons rapidement.</p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className="text-red-300 text-sm text-center" role="alert">⚠️ Veuillez remplir tous les champs.</p>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
         * {
           font-family: 'Space Grotesk', sans-serif;
@@ -308,248 +547,6 @@ const FaqAccordion: React.FC = () => {
           pointer-events: none;
         }
       `}</style>
-
-      <section className="relative min-h-screen bg-gradient-to-br from-[#0a0a1a] via-[#141428] to-[#1a1a2e] py-20 lg:py-28 overflow-hidden">
-        {/* Arrière-plan animé */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#9b596d]/20 rounded-full blur-[100px] animate-float-fast" />
-          <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-[#4d767c]/20 rounded-full blur-[120px] animate-float-slow" />
-          <div className="absolute top-2/3 left-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-[80px] animate-float-fast" />
-          {particles.map((particle, i) => (
-            <div key={i} className="absolute bg-white/30 rounded-full" style={particle.style} />
-          ))}
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* En-tête */}
-          <div className="text-center mb-12 md:mb-16 animate-fade-up">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-5 py-2 rounded-full border border-white/20 shadow-lg mb-4">
-              <HelpCircle size={18} className="text-[#ffb7c5]" />
-              <span className="text-[#ffb7c5] font-semibold text-sm tracking-wide">FAQ — On vous dit tout</span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-              <span className="bg-gradient-to-r from-[#ffb7c5] via-[#f5a97f] to-[#8bd3c7] bg-clip-text text-transparent bg-[length:200%_auto] animate-[gradientShift_6s_ease_infinite]">
-                Vos questions, nos réponses
-              </span>
-            </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-[#9b596d] via-[#4d767c] to-[#f5a97f] mx-auto mt-5 rounded-full" />
-            <p className="mt-6 text-gray-300 text-lg max-w-2xl mx-auto backdrop-blur-sm">
-              Transparence totale sur nos méthodes, délais et tarifs. Une équipe à votre écoute.
-            </p>
-          </div>
-
-          {/* Deux colonnes */}
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Colonne gauche : image changeante spontanément + texte */}
-            <div className="lg:w-5/12 animate-fade-up" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
-              <div className="sticky top-8 space-y-6">
-                <div className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 image-pulse">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#9b596d]/30 to-[#4d767c]/30 mix-blend-overlay" />
-                  <img
-                    src={imageUrls[currentImageIndex]}
-                    alt="Tableau de bord et analytics - vue dynamique"
-                    className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
-                  />
-                </div>
-                <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10">
-                  <h3 className="text-xl font-bold text-white mb-2">Pourquoi faire confiance à Nexolia ?</h3>
-                  <p className="text-gray-200 leading-relaxed">
-                    Forts de plus de 10 ans d’expertise en data visualisation et développement sur mesure,
-                    nous transformons vos données en leviers de croissance. Chaque projet est unique,
-                    agile et pensé pour évoluer avec vous.
-                  </p>
-                  <div className="mt-4 flex items-center gap-2 text-[#ffb7c5] text-sm">
-                    <span className="w-2 h-2 bg-[#ffb7c5] rounded-full" />
-                    <span>+50 clients satisfaits</span>
-                    <span className="w-2 h-2 bg-[#ffb7c5] rounded-full" />
-                    <span>100% sur mesure</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Colonne droite : FAQ paginée avec réponses */}
-            <div className="lg:w-7/12 space-y-6">
-              {currentItems.map((item, idx) => {
-                const isOpen = openId === item.id;
-                const height = isOpen ? contentHeights[item.id] : 0;
-                return (
-                  <div
-                    key={item.id}
-                    className="faq-item animate-fade-up"
-                    style={{ animationDelay: `${0.15 + idx * 0.07}s`, animationFillMode: 'forwards' }}
-                  >
-                    <div className="relative bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 transition-all duration-300 card-glow overflow-hidden">
-                      <div className="absolute inset-0 rounded-2xl pointer-events-none">
-                        <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-[#9b596d] via-[#4d767c] to-[#f5a97f] opacity-30 blur-sm animate-float-fast" />
-                      </div>
-                      <button
-                        onClick={(e) => handleRipple(e, item.id)}
-                        className="relative w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffb7c5] transition-all duration-200 group"
-                      >
-                        <div className="flex items-start gap-4">
-                          <div className="hidden sm:block w-8 h-8 rounded-full bg-gradient-to-tr from-[#9b596d] to-[#4d767c] flex-shrink-0 mt-0.5 shadow-lg" />
-                          <span className="text-gray-100 font-semibold text-base md:text-lg pr-4 group-hover:text-[#ffb7c5] transition-colors duration-200">
-                            {item.question}
-                          </span>
-                        </div>
-                        <div
-                          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-500 ${isOpen
-                            ? 'bg-[#9b596d] text-white rotate-90 scale-110'
-                            : 'bg-white/10 text-[#ffb7c5] group-hover:bg-white/20 group-hover:rotate-12'
-                            }`}
-                        >
-                          {isOpen ? <X size={18} /> : <ChevronDown size={18} />}
-                        </div>
-                      </button>
-
-                      <div
-                        className="transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] overflow-hidden"
-                        style={{ height: `${height}px` }}
-                      >
-                        <div
-                          ref={(el) => {
-                            contentRefs.current[item.id] = el;
-                          }} className="px-5 md:px-6 pb-5 md:pb-6"
-                        >
-                          <div className="border-t border-white/10 pt-4">
-                            <p className="text-gray-200 leading-relaxed text-base md:text-md">
-                              {item.answer}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-4 mt-8">
-                  <button
-                    onClick={goToPrevPage}
-                    disabled={currentPage === 1}
-                    className={`p-2 rounded-full transition-all duration-200 ${currentPage === 1
-                      ? 'bg-white/5 text-gray-500 cursor-not-allowed'
-                      : 'bg-white/10 text-[#ffb7c5] hover:bg-white/20 hover:scale-105'
-                      }`}
-                    aria-label="Page précédente"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <span className="text-gray-200 text-sm">
-                    Page {currentPage} sur {totalPages}
-                  </span>
-                  <button
-                    onClick={goToNextPage}
-                    disabled={currentPage === totalPages}
-                    className={`p-2 rounded-full transition-all duration-200 ${currentPage === totalPages
-                      ? 'bg-white/5 text-gray-500 cursor-not-allowed'
-                      : 'bg-white/10 text-[#ffb7c5] hover:bg-white/20 hover:scale-105'
-                      }`}
-                    aria-label="Page suivante"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </div>
-              )}
-
-              {/* Call to action avec modale */}
-              <div className="mt-8 text-center bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 transition-all hover:bg-white/10">
-                <p className="text-gray-200 text-sm">
-                  🤔 Une question plus personnelle ?{" "}
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="text-[#ffb7c5] font-semibold hover:underline decoration-wavy underline-offset-4 transition-all cursor-pointer"
-                  >
-                    Écrivez‑nous directement
-                  </button>{" "}
-                  – réponse garantie sous 24h.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MODALE */}
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-all duration-300"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsModalOpen(false);
-          }}
-        >
-          <div className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-2xl animate-modal overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#9b596d]/10 to-[#4d767c]/10 pointer-events-none" />
-            <div className="relative p-6">
-              <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                  <Mail className="text-[#ffb7c5]" size={24} />
-                  <h3 className="text-xl font-bold text-white">Contactez-nous</h3>
-                </div>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-200 mb-1">Nom complet</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all"
-                    placeholder="Jean Dupont"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-200 mb-1">Adresse email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all"
-                    placeholder="jean@example.com"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-200 mb-1">Votre question</label>
-                  <textarea
-                    name="question"
-                    rows={3}
-                    value={formData.question}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ffb7c5] transition-all resize-none"
-                    placeholder="Décrivez votre besoin ou votre question..."
-                    required
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-2 px-4 bg-gradient-to-r from-[#9b596d] to-[#4d767c] text-white font-semibold rounded-lg hover:shadow-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  Envoyer
-                </button>
-                {submitStatus === 'success' && (
-                  <p className="text-green-300 text-sm text-center">✓ Message envoyé ! Nous vous répondrons rapidement.</p>
-                )}
-                {submitStatus === 'error' && (
-                  <p className="text-red-300 text-sm text-center">⚠️ Veuillez remplir tous les champs.</p>
-                )}
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };

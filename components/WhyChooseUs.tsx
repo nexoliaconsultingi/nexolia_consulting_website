@@ -12,7 +12,7 @@ interface Feature {
   icon: React.ElementType;
   title: string;
   description: string;
-  delay: number; // délai d'animation personnalisé
+  delay: number;
 }
 
 const features: Feature[] = [
@@ -86,10 +86,10 @@ const WhyChooseUs: React.FC = () => {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-20 lg:py-28 bg-[#f9f8f9]"
+      aria-labelledby="why-choose-us-heading"
     >
-      {/* Arrière‑plan : image + overlay + éléments flottants */}
-      <div className="absolute inset-0 z-0">
-        {/* Image de fond (remplacez l'URL par votre propre image) */}
+      {/* Arrière-plan décoratif (masqué pour les lecteurs d'écran) */}
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
           style={{
@@ -97,23 +97,27 @@ const WhyChooseUs: React.FC = () => {
               "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
           }}
         />
-        {/* Dégradé dynamique pour renforcer la lisibilité et l'énergie */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#9b596d]/5 via-transparent to-[#4d767c]/10" />
-        {/* Cercles flottants animés */}
         <div className="absolute top-20 left-10 w-64 h-64 bg-[#9b596d]/10 rounded-full blur-3xl animate-pulse-slow" />
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#4d767c]/10 rounded-full blur-3xl animate-pulse-slower" />
         <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-white/20 rounded-full blur-2xl animate-float" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* En-tête avec animation au scroll */}
+        {/* En-tête */}
         <div className="text-center mb-16 md:mb-20 animate-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+          <h2
+            id="why-choose-us-heading"
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight"
+          >
             <span className="bg-gradient-to-r from-[#9b596d] to-[#4d767c] bg-clip-text text-transparent">
               Pourquoi nous choisir ?
             </span>
           </h2>
-          <div className="w-28 h-1.5 bg-gradient-to-r from-[#9b596d] to-[#4d767c] mx-auto mt-5 rounded-full" />
+          <div
+            className="w-28 h-1.5 bg-gradient-to-r from-[#9b596d] to-[#4d767c] mx-auto mt-5 rounded-full"
+            aria-hidden="true"
+          />
           <p className="mt-6 text-lg md:text-xl text-[#4d767c] max-w-2xl mx-auto font-medium">
             Nexolia Consulting : votre partenaire de confiance pour un
             développement logiciel réussi.
@@ -131,11 +135,11 @@ const WhyChooseUs: React.FC = () => {
                 style={{ transitionDelay: `${feature.delay}s` }}
               >
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-white/50 hover:border-[#9b596d]/30 h-full flex flex-col">
-                  {/* Icône avec double effet énergique */}
-                  <div className="relative mb-5">
+                  {/* Icône */}
+                  <div className="relative mb-5" aria-hidden="true">
                     <div className="absolute inset-0 bg-[#9b596d]/20 rounded-full blur-md group-hover:blur-xl transition-all duration-300" />
                     <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#9b596d] to-[#4d767c] flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 group-hover:shadow-[#9b596d]/40">
-                      <IconComponent size={30} strokeWidth={1.7} />
+                      <IconComponent size={30} strokeWidth={1.7} aria-hidden="true" />
                     </div>
                   </div>
                   <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#9b596d] transition-colors">
@@ -144,31 +148,38 @@ const WhyChooseUs: React.FC = () => {
                   <p className="text-gray-700 leading-relaxed">
                     {feature.description}
                   </p>
-                  {/* Ligne décorative au survol */}
-                  <div className="mt-4 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-[#9b596d] to-[#4d767c] transition-all duration-500 rounded-full" />
+                  {/* Ligne décorative */}
+                  <div
+                    className="mt-4 h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-[#9b596d] to-[#4d767c] transition-all duration-500 rounded-full"
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Badge dynamique supplémentaire */}
+        {/* Badge dynamique */}
         <div className="mt-20 text-center animate-on-scroll opacity-0 transition-all duration-700 delay-700">
-          <div className="inline-flex items-center gap-3 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md border border-white/50">
-            <span className="relative flex h-3 w-3">
+          <div
+            className="inline-flex items-center gap-3 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md border border-white/50"
+            role="status"
+            aria-live="polite"
+          >
+            <span className="relative flex h-3 w-3" aria-hidden="true">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9b596d] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-[#9b596d]"></span>
             </span>
             <span className="text-[#4d767c] font-medium">
-             Des solutions qui propulsent votre business — accompagnement
+              Des solutions qui propulsent votre business — accompagnement
               sur-mesure, transparence et résultats concrets.
             </span>
           </div>
         </div>
       </div>
 
-      {/* Styles d'animation personnalisés (ajouter dans votre fichier CSS global ou avec un <style> en module) */}
-      <style>{`
+      {/* Styles d'animation (peuvent être déplacés dans un fichier CSS global pour éviter les problèmes d'hydratation) */}
+      <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
