@@ -148,6 +148,17 @@ export default function RootLayout({
                   "name": "ERP & Digitalisation des Entreprises",
                   "description": "Analyse gratuite + développement ERP + consulting + suivi.",
                   "image": "https://nexolia-consulting.com/new/erp.png",
+
+                  "offers": {
+                    "@type": "Offer",
+                    "priceSpecification": {
+                      "@type": "PriceSpecification",
+                      "price": 2500,
+                      "priceCurrency": "USD"
+                    },
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://nexolia-consulting.com/services"
+                  }
                 },
 
                 {
