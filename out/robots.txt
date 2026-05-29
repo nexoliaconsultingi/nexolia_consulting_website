@@ -2,12 +2,8 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
 Disallow: /dashboard/
-Disallow: /*.json$
-Disallow: /contact/success
-Disallow: /contact/error
 
 Sitemap: https://nexolia-consulting.com/sitemap.xml
 
