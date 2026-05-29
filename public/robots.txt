@@ -14,9 +14,6 @@ Disallow: /*.json$
 Disallow: /contact/success
 Disallow: /contact/error
 
-# ✅ Délai d'exploration (respectueux pour le serveur)
-Crawl-delay: 1
-
 # ✅ Localisation du sitemap (URL CORRIGÉE avec www)
 Sitemap: https://www.nexolia-consulting.com/sitemap.xml
 
