@@ -5,22 +5,22 @@ export const metadata: Metadata = {
   title: "Services IT | Développement Web, Mobile, SaaS & Expert Microsoft 365 | NEXOLIA",
   description: "Découvrez nos prestations : applications web responsives optimisées SEO, applications mobiles sur-mesure, plateformes SaaS complexes, intégration Microsoft 365 (SPFx, Power Automate, Power BI), CRM/ERP et UI/UX Design.",
   alternates: {
-    canonical: "https://www.nexolia-consulting.com/services",
+    canonical: "https://nexolia-consulting.com/services",
     languages: {
-      fr: "https://www.nexolia-consulting.com/services",
-      en: "https://www.nexolia-consulting.com/en/services",
+      fr: "https://nexolia-consulting.com/services",
+      en: "https://nexolia-consulting.com/en/services",
     },
   },
   openGraph: {
     title: "Services Informatiques & Ingénierie Logicielle | NEXOLIA CONSULTING",
     description: "Solutions technologiques sur-mesure pour PME et grands comptes. Externalisation Nearshore et conseil en transformation digitale.",
-    url: "https://www.nexolia-consulting.com/services",
+    url: "https://nexolia-consulting.com/services",
     type: "website",
     locale: "fr_FR",
     siteName: "NEXOLIA",
     images: [
       {
-        url: "https://www.nexolia-consulting.com/logoNexo.png",
+        url: "https://nexolia-consulting.com/logoNexo.png",
         width: 1200,
         height: 630,
         alt: "Services NEXOLIA - Développement et solutions Microsoft",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Services IT | NEXOLIA Consulting",
     description: "Développement web/mobile, SaaS, Microsoft 365, design et support.",
-    images: ["https://www.nexolia-consulting.com/logoNexo.png"],
+    images: ["https://nexolia-consulting.com/logoNexo.png"],
   },
   robots: {
     index: true,
@@ -51,32 +51,32 @@ export default function ServicesPage() {
     {
       name: "Développement Web & Mobile sur-mesure",
       description: "Création d'applications web et mobiles natives intégrant les technologies Next.js, Flutter et React Native avec une optimisation SEO native.",
-      url: "https://www.nexolia-consulting.com/services/developpement-web-mobile",
+      url: "https://nexolia-consulting.com/services/developpement-web-mobile",
     },
     {
       name: "Solutions Microsoft 365 & Power Platform",
       description: "Développement SPFx, automatisation Power Automate, dashboards Power BI, et intégration SharePoint.",
-      url: "https://www.nexolia-consulting.com/services/microsoft-365",
+      url: "https://nexolia-consulting.com/services/microsoft-365",
     },
     {
       name: "Solutions SaaS",
       description: "Plateformes SaaS scalables et sécurisées pour votre croissance.",
-      url: "https://www.nexolia-consulting.com/services/saas",
+      url: "https://nexolia-consulting.com/services/saas",
     },
     {
       name: "Design & Expérience",
       description: "Design exceptionnel et contenu visuel professionnel qui convertit.",
-      url: "https://www.nexolia-consulting.com/services/design",
+      url: "https://nexolia-consulting.com/services/design",
     },
     {
       name: "Solutions Personnalisées",
       description: "Développement sur mesure pour vos besoins spécifiques.",
-      url: "https://www.nexolia-consulting.com/services/solutions-personnalisees",
+      url: "https://nexolia-consulting.com/services/solutions-personnalisees",
     },
     {
       name: "Maintenance & Support",
       description: "Support technique et évolution continue pour votre tranquillité d'esprit.",
-      url: "https://www.nexolia-consulting.com/services/maintenance-support",
+      url: "https://nexolia-consulting.com/services/maintenance-support",
     },
   ];
 
@@ -99,7 +99,7 @@ export default function ServicesPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA CONSULTING",
-          "url": "https://www.nexolia-consulting.com",
+          "url": "https://nexolia-consulting.com",
         },
         "areaServed": [
           { "@type": "Country", "name": "Tunisie" },
@@ -114,8 +114,8 @@ export default function ServicesPage() {
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.nexolia-consulting.com" },
-          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.nexolia-consulting.com/services" },
+          { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://nexolia-consulting.com" },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://nexolia-consulting.com/services" },
         ],
       },
     ],

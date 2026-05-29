@@ -1,11 +1,6 @@
-# public/robots.txt
-# https://www.nexolia-consulting.com/robots.txt
-
-# ✅ Environment: Production
 User-agent: *
 Allow: /
 
-# ⚠️ Blocage des sections non nécessaires à l'indexation
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
@@ -14,20 +9,15 @@ Disallow: /*.json$
 Disallow: /contact/success
 Disallow: /contact/error
 
-# ✅ Localisation du sitemap (URL CORRIGÉE avec www)
-Sitemap: https://www.nexolia-consulting.com/sitemap.xml
+Sitemap: https://nexolia-consulting.com/sitemap.xml
 
-# ✅ Règles spécifiques pour Googlebot (optimisé)
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
 Disallow: /_next/
-Crawl-delay: 0.5
 
-# ✅ Règles pour les images (permet l'indexation des images)
 User-agent: Googlebot-Image
 Allow: /
 
-# ✅ Règles pour les mobiles
 User-agent: Googlebot-Mobile
 Allow: /

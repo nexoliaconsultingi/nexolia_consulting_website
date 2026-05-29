@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AboutContent from "../../components/AboutContent";
 
 // URL de base (à mettre dans .env si possible)
-const SITE_URL = "https://www.nexolia-consulting.com"; // À adapter
+const SITE_URL = "https://nexolia-consulting.com"; // À adapter
 
 export const metadata: Metadata = {
   title: "Qui Sommes-Nous ? | Nexolia Consulting – ESN & Cabinet Conseil IT Tunisie Paris",

@@ -3,7 +3,7 @@ import { MetadataRoute } from "next"
 export const dynamic = "force-static"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-const baseUrl = "https://www.nexolia-consulting.com"
+const baseUrl = "https://nexolia-consulting.com"
   return [
     {
       url: baseUrl,

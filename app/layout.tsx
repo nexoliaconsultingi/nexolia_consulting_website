@@ -1,9 +1,7 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import ClientLayout from "@/components/ui/ClientLayout"
 
-// ========== VIEWPORT (Mobile-First Indexing) ==========
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -12,9 +10,8 @@ export const viewport: Viewport = {
   themeColor: "#53828a",
 }
 
-// ========== METADATA PRINCIPALE ==========
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.nexolia-consulting.com"),
+  metadataBase: new URL("https://nexolia-consulting.com"),
   
   title: {
     default: "NEXOLIA CONSULTING | Agence IT Tunisie & ESN Partenaire Tech en France",
@@ -24,10 +21,10 @@ export const metadata: Metadata = {
   description: "NEXOLIA : Société de développement informatique franco-tunisienne. Expert en création d'applications sur-mesure (SaaS, Web, Mobile), intégration de solutions Microsoft 365 (SPFx, Power Automate, Power BI) et formation PMP.",
 
   alternates: {
-    canonical: "https://www.nexolia-consulting.com",
+    canonical: "https://nexolia-consulting.com",
     languages: {
-      "fr": "https://www.nexolia-consulting.com",
-      "en": "https://www.nexolia-consulting.com/en",
+      "fr": "https://nexolia-consulting.com",
+      "en": "https://nexolia-consulting.com/en",
     },
   },
 
@@ -60,7 +57,7 @@ export const metadata: Metadata = {
 
   authors: [{
     name: "Salwej Med.Wahbi",
-    url: "https://www.nexolia-consulting.com",
+    url: "https://nexolia-consulting.com",
   }],
   
   creator: "Salwej Med.Wahbi",
@@ -82,13 +79,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     alternateLocale: ["en_US", "ar_SA"],
-    url: "https://www.nexolia-consulting.com",
+    url: "https://nexolia-consulting.com",
     title: "NEXOLIA | Société de Développement Informatique & Solutions Microsoft 365",
     description: "Votre partenaire IT de confiance en Tunisie et en France. Développement SaaS, applications mobiles sur-mesure et expertise Power Platform.",
     siteName: "NEXOLIA",
     images: [
       {
-        url: "https://www.nexolia-consulting.com/logoNexo.png",
+        url: "https://nexolia-consulting.com/logoNexo.png",
         width: 1200,
         height: 630,
         alt: "NEXOLIA - Services Informatiques, Solutions Microsoft et Formations",
@@ -104,7 +101,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NEXOLIA | Expert Tech (SaaS, Mobile, Microsoft 365)",
     description: "Accompagnement digital et développement logiciel de pointe pour entreprises en France et en Tunisie.",
-    images: ["https://www.nexolia-consulting.com/logoNexo.png"],
+    images: ["https://nexolia-consulting.com/logoNexo.png"],
     site: "@nexoliaconsulting",
     creator: "@nexoliaconsulting",
   },
@@ -132,7 +129,6 @@ export const metadata: Metadata = {
   },
 }
 
-// ========== ROOT LAYOUT ==========
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -141,11 +137,9 @@ export default function RootLayout({
   return (
     <html lang="fr" className="scroll-smooth">
       <head>
-        {/* Optimisations performances */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         
-        {/* Thème et PWA */}
         <meta name="theme-color" content="#53828a" />
         <meta name="msapplication-TileColor" content="#53828a" />
         <meta name="msapplication-TileImage" content="/favicon-144.png" />
@@ -154,7 +148,6 @@ export default function RootLayout({
       <body className="antialiased bg-white text-gray-900 min-h-screen flex flex-col">
         <ClientLayout>{children}</ClientLayout>
 
-        {/* ========== JSON-LD FUSIONNÉ (LocalBusiness + BreadcrumbList) ========== */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -163,17 +156,17 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "LocalBusiness",
-                  "@id": "https://www.nexolia-consulting.com/#localbusiness",
+                  "@id": "https://nexolia-consulting.com/#localbusiness",
                   "name": "NEXOLIA CONSULTING",
                   "alternateName": "NEXOLIA",
-                  "url": "https://www.nexolia-consulting.com",
+                  "url": "https://nexolia-consulting.com",
                   "logo": {
                     "@type": "ImageObject",
-                    "url": "https://www.nexolia-consulting.com/logoNexo.png",
+                    "url": "https://nexolia-consulting.com/logoNexo.png",
                     "width": "1200",
                     "height": "630",
                   },
-                  "image": "https://www.nexolia-consulting.com/logoNexo.png",
+                  "image": "https://nexolia-consulting.com/logoNexo.png",
                   "description": "Agence IT spécialisée en développement SaaS, applications mobiles, solutions Microsoft 365, Power BI et SEO.",
                   "email": "contact@nexolia-consulting.com",
                   "telephone": "+21623267646",
@@ -233,7 +226,7 @@ export default function RootLayout({
                       "@type": "ListItem",
                       "position": 1,
                       "name": "Accueil",
-                      "item": "https://www.nexolia-consulting.com"
+                      "item": "https://nexolia-consulting.com"
                     }
                   ]
                 }

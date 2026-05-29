@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   title: "Notre Portfolio | Réalisations ERP, Plateformes SaaS & Projets Microsoft",
   description: "Découvrez les études de cas de NEXOLIA CONSULTING : ERP financiers intelligents (Power Apps, SPFx, Power BI), systèmes de gestion médicale sur-mesure et solutions SaaS responsives déployées en France et Tunisie.",
   alternates: {
-    canonical: "https://www.nexolia-consulting.com/portfolio", // URL canonique absolue
+    canonical: "https://nexolia-consulting.com/portfolio", // URL canonique absolue
   },
   openGraph: {
     title: "Portfolio NEXOLIA CONSULTING | Nos Projets et Applications Développées",
     description: "Explorez nos succès clients : intégrations d'écosystèmes cloud, automatisations complexes et architectures logicielles scalables.",
-    url: "https://www.nexolia-consulting.com/portfolio",
+    url: "https://nexolia-consulting.com/portfolio",
     type: "website",
   },
   robots: {
@@ -39,7 +39,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "https://www.nexolia-consulting.com"
+          "url": "https://nexolia-consulting.com"
         }
       },
       {
@@ -51,7 +51,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "https://www.nexolia-consulting.com"
+          "url": "https://nexolia-consulting.com"
         }
       },
       {
@@ -63,7 +63,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "https://www.nexolia-consulting.com"
+          "url": "https://nexolia-consulting.com"
         }
       },
       {
@@ -75,7 +75,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "https://wwW.nexolia-consulting.com"
+          "url": "https://nexolia-consulting.com"
         }
       },
       {
@@ -87,7 +87,7 @@ export default function PortfolioPage() {
         "provider": {
           "@type": "LocalBusiness",
           "name": "NEXOLIA",
-          "url": "https://www.nexolia-consulting.com"
+          "url": "https://nexolia-consulting.com"
         }
       }
     ]

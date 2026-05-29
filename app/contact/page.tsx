@@ -56,12 +56,12 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://www.nexolia-consulting.com/#organization",
+      "@id": "https://nexolia-consulting.com/#organization",
       "name": "NEXOLIA CONSULTING",
       "alternateName": "Nexolia Consulting",
-      "url": "https://www.nexolia-consulting.com",
-      "logo": "https://www.nexolia-consulting.com/logo.png",
-      "image": "https://www.nexolia-consulting.com/og-image.jpg",
+      "url": "https://nexolia-consulting.com",
+      "logo": "https://nexolia-consulting.com/logo.png",
+      "image": "https://nexolia-consulting.com/og-image.jpg",
       "description": "Cabinet de conseil et développement IT basé au Pôle Technique El Ghazela, Tunis. Experts en web, mobile, SaaS, Microsoft 365 et Power Platform.",
       "email": "contact@nexolia-consulting.com",
       "telephone": "+216 23 267 646",
