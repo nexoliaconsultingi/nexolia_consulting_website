@@ -130,7 +130,7 @@ const PartnerCarousel: React.FC = () => {
       }
       const container = scrollContainerRef.current;
       const maxScroll = container.scrollWidth - container.clientWidth;
-      scrollPositionRef.current += 0.8;
+      scrollPositionRef.current += 2;
       if (scrollPositionRef.current >= maxScroll) scrollPositionRef.current = 0;
       container.scrollLeft = scrollPositionRef.current;
       checkVisibleCards();
