@@ -131,13 +131,13 @@ const WhyChooseUs: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="animate-on-scroll opacity-0 translate-y-8 transition-all duration-700 group"
+                className="animate-on-scroll opacity translate-y-8 transition-all duration-700 group"
                 style={{ transitionDelay: `${feature.delay}s` }}
               >
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-white/50 hover:border-[#9b596d]/30 h-full flex flex-col">
+                <div className="bg-white/100 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 border border-white/50 hover:border-[#9b596d]/30 h-full flex flex-col">
                   {/* Icône */}
                   <div className="relative mb-5" aria-hidden="true">
-                    <div className="absolute inset-0 bg-[#9b596d]/20 rounded-full blur-md group-hover:blur-xl transition-all duration-300" />
+                    <div className="absolute inset-0 rounded-full blur-md group-hover:blur-xl transition-all duration-300" />
                     <div className="relative w-16 h-16 rounded-full bg-gradient-to-br from-[#9b596d] to-[#4d767c] flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 group-hover:shadow-[#9b596d]/40">
                       <IconComponent size={30} strokeWidth={1.7} aria-hidden="true" />
                     </div>

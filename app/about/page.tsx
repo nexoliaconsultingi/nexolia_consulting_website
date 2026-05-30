@@ -158,10 +158,6 @@ export default function AboutPage() {
           ],
         },
       },
-
-
-
-      // FAQ enrichie (si vous avez une section FAQ dans AboutContent)
       {
         "@type": "FAQPage",
         mainEntity: [

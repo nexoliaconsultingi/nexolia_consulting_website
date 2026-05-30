@@ -228,8 +228,7 @@ const PuissanceVision: React.FC = () => {
         <div className="mt-20 text-center animate-on-scroll opacity-0 transition-all duration-700 delay-600">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-white hover:bg-gradient-to-r hover:from-[#9b596d] hover:to-[#4d767c] hover:text-white border border-[#9b596d] text-[#9b596d] font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-[#9b596d] focus:ring-offset-2"
-            aria-label="Demander un audit d'architecture ou un accompagnement projet"
+className="inline-flex items-center gap-2 bg-gradient-to-r from-[#9b596d] to-[#4d767c] text-white border border-[#9b596d] font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md hover:shadow-xl hover:bg-white hover:bg-none hover:text-[#9b596d] focus:outline-none focus:ring-2 focus:ring-[#9b596d] focus:ring-offset-2"            aria-label="Demander un audit d'architecture ou un accompagnement projet"
           >
             <span>Demander un audit technologique</span>
             <Rocket size={18} aria-hidden="true" />

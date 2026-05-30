@@ -17,6 +17,8 @@ import wahbi from "../../public/equipe/wahbi.jpg"
 import aziz from "../../public/equipe/aziz.png"
 import zayneb from "../../public/equipe/zayneb.png"
 import mahmoud from "../../public/equipe/mahmoud.png"
+import ala from "../../public/equipe/ala.png"
+
 import abdou from "../../public/equipe/WhatsApp Image 2026-05-13 at 11.50.56.jpeg"
 
 const Team: React.FC = () => {
@@ -50,15 +52,7 @@ const Team: React.FC = () => {
       linkedin: "https://www.linkedin.com/in/houda-jarraya-2282527/",
       gradient: "from-rose-500 to-orange-500",
     },
-    {
-      name: "Aziz Zribi",
-      role: "Responsable Marketing Digital",
-      bio: "Professionnel du marketing digital avec plus de 8 ans d'expérience dans la gestion de campagnes digitales, la stratégie de contenu et l'optimisation de la présence en ligne des entreprises.",
-      image: aziz,
-      expertise: ["CMO", "CSO", "Stratégie marketing digitale", "Campagnes publicitaires", "Content marketing", "KPIs"],
-      linkedin: "https://www.linkedin.com/in/mohamed-aziz-zribi-099b19250/",
-      gradient: "from-pink-500 to-red-600",
-    },
+   
     {
       name: "Abed Ejlil Chbil",
       role: "Administrateur Systèmes & Réseaux Senior",
@@ -77,6 +71,27 @@ const Team: React.FC = () => {
       linkedin: "#",
       gradient: "from-slate-600 to-blue-700",
     },
+
+    {
+  name: "Alaa Landolsi",
+  role: "Responsable UI/UX & Web Designer",
+  bio: "Ingénieur DSI, Web Designer et Intégrateur Web certifié Adobe, avec plus de 15 ans d'expérience dans la conception d'interfaces utilisateur modernes, l'expérience utilisateur (UX), l'intégration web et la création de solutions digitales innovantes centrées sur les besoins des utilisateurs et les objectifs métiers.",
+  image: ala,
+  expertise: [
+    "UI Design",
+    "UX Design",
+    "Adobe Certified Professional",
+    "Web Design",
+    "Intégration Web",
+    "Design System",
+    "Prototypage",
+    "Responsive Design",
+    "Accessibilité Web",
+    "Ingénierie DSI"
+  ],
+  linkedin: "https://www.linkedin.com/in/alaa-landolsi-630784121/",
+  gradient: "from-blue-500 to-cyan-600",
+},
    
     {
       name: "Mahmoud Bousbih",
@@ -98,15 +113,27 @@ const Team: React.FC = () => {
       ],
       linkedin: "https://www.linkedin.com/in/mahmoudbh7?utm_source=share_via&utm_content=profile&utm_medium=member_android",
       gradient: "from-green-500 to-teal-600",
-    }, {
-      name: "Mohamed Wahbi Salwej",
-      role: "Full-Stack Developer Microsoft & MERN",
-      bio: "Spécialisé en développement d’applications web, mobiles et solutions Microsoft. Expert en MERN stack, React Native et Power Platform. Passionné par l’IA, l’analytique (Power BI) et les solutions cloud sécurisées.",
-      image: wahbi,
-      expertise: ["CEO", "CTO", "PMO", "Togaf", "Full-Stack Dev", "React Native", "Power Platform", "AI & Analytics"],
-      linkedin: "https://www.linkedin.com/in/med-wahbi-salwej-692b7a282/",
-      gradient: "from-blue-500 to-purple-600",
-    }
+    }, 
+    
+    
+    {
+  name: "Mohamed Wahbi Salwej",
+  role: "CEO & Digital Transformation Consultant",
+  bio: "Expert en transformation digitale, gestion de projets stratégiques et optimisation de la performance des entreprises. Certifié PMP et spécialisé dans les solutions Microsoft, l'analyse de données avec Power BI, le référencement SEO avancé et l'architecture des systèmes d'information. Passionné par l'innovation technologique et l'accompagnement des organisations dans leur croissance numérique.",
+  image: wahbi,
+  expertise: [
+    "CEO",
+    "PMP Certified",
+    "Digital Transformation",
+    "Microsoft Consultant",
+    "SEO Strategy",
+    "Power BI Data Analytics",
+    "Systems & Network Administration",
+    "Enterprise Project Management"
+  ],
+  linkedin: "https://www.linkedin.com/in/med-wahbi-salwej-692b7a282/",
+  gradient: "from-blue-500 to-purple-600"
+}
   ]
 
   return (

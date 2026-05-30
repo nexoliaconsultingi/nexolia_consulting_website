@@ -63,8 +63,7 @@ export default function HeroSection() {
             transition={{ duration: 1 }}
             className="mb-6"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6">
-              <span className="text-white">NEXOLIA Consulting :</span>
+            <h1 className="sm:pt-0 text-[30px] sm:text-4xl md:text-6xl lg:text-8xl font-black mb-6 leading-tight"> <span className="text-white">NEXOLIA Consulting</span>
               <br />
               <span className="bg-gradient-to-r from-[#f5e6d3] via-[#ffd6c4] to-[#ffc6b4] bg-clip-text text-transparent">
                 Votre partenaire digital en Tunisie et France
@@ -137,7 +136,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="flex flex-wrap justify-center gap-8 mb-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-8 mb-8 sm:mb-12"
           >
             {[
               { value: "98%", label: "de satisfaction client", icon: Shield },
@@ -149,12 +148,28 @@ export default function HeroSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.1 + idx * 0.1 }}
-                className="flex items-center gap-3 bg-white/5 backdrop-blur-sm rounded-xl px-3 py-3 border border-white/10"
+                className="
+        flex items-center gap-2
+        bg-white/5 backdrop-blur-sm
+        rounded-lg sm:rounded-xl
+        px-2 py-2 sm:px-3 sm:py-3
+        border border-white/10
+        min-w-[95px] sm:min-w-[140px]
+      "
               >
-                <stat.icon className="w-8 h-8 text-[#f5e6d3]" aria-hidden="true" />
+                <stat.icon
+                  className="w-5 h-5 sm:w-8 sm:h-8 text-[#f5e6d3]"
+                  aria-hidden="true"
+                />
+
                 <div>
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-xs text-white/70">{stat.label}</div>
+                  <div className="text-base sm:text-2xl font-bold text-white">
+                    {stat.value}
+                  </div>
+
+                  <div className="text-[10px] sm:text-xs text-white/70 leading-tight">
+                    {stat.label}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -169,23 +184,82 @@ export default function HeroSection() {
           >
             <Link
               href="/portfolio"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-r from-[#53828a] via-[#6b8f95] to-[#b05f76] px-6 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-lg font-semibold text-white shadow-[0_10px_35px_rgba(83,130,138,0.35)] hover:shadow-[0_15px_45px_rgba(176,95,118,0.45)] transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02] border border-white/10 backdrop-blur-md"
+              className="
+      group relative inline-flex items-center justify-center overflow-hidden
+      rounded-2xl
+      bg-gradient-to-r from-[#53828a] via-[#6b8f95] to-[#b05f76]
+
+      max-[350px]:px-[50px]
+      max-[350px]:py-3
+      max-[350px]:text-[10px]
+
+      px-6 py-3.5
+      sm:px-8 sm:py-4
+
+      text-sm sm:text-lg
+      font-semibold text-white
+
+      shadow-[0_10px_35px_rgba(83,130,138,0.35)]
+      hover:shadow-[0_15px_45px_rgba(176,95,118,0.45)]
+
+      transition-all duration-300 ease-out
+      hover:-translate-y-1 hover:scale-[1.02]
+
+      border border-white/10
+      backdrop-blur-md
+    "
               aria-label="Découvrir nos solutions - Portfolio NEXOLIA"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-120%] group-hover:translate-x-[120%] transition-transform duration-1000" />
+
               <span className="absolute inset-0 bg-gradient-to-r from-[#53828a]/20 to-[#b05f76]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
               <span className="relative flex items-center gap-2 z-10">
-                <Eye className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" aria-hidden="true" />
+                <Eye
+                  className="
+          w-4 h-4
+          max-[350px]:w-3
+          max-[350px]:h-3
+          sm:w-5 sm:h-5
+          transition-transform duration-300
+          group-hover:rotate-12
+          group-hover:scale-110
+        "
+                  aria-hidden="true"
+                />
                 Découvrir nos solutions
               </span>
             </Link>
 
             <Link
               href="/contact"
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-[#7e95a0] hover:bg-[#3f3f3f] px-6 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-lg font-semibold text-white border border-[#5a5a5a] shadow-xl hover:shadow-2xl transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.02]"
+              className="
+      group relative inline-flex items-center justify-center overflow-hidden
+      rounded-2xl
+
+      bg-[#7e95a0]
+      hover:bg-[#3f3f3f]
+
+      max-[350px]:px-[50px]
+      max-[350px]:py-3
+      max-[350px]:text-[10px]
+
+      px-6 py-3.5
+      sm:px-8 sm:py-4
+
+      text-sm sm:text-lg
+      font-semibold text-white
+
+      border border-[#5a5a5a]
+      shadow-xl hover:shadow-2xl
+
+      transition-all duration-300 ease-out
+      hover:-translate-y-1 hover:scale-[1.02]
+    "
               aria-label="Demander un devis gratuit - Contact NEXOLIA"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-120%] group-hover:translate-x-[120%] transition-transform duration-1000" />
+
               <span className="relative z-10 flex items-center gap-2">
                 Demander un devis gratuitement
               </span>

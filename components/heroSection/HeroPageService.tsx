@@ -104,7 +104,7 @@ const HeroPageService: React.FC<HeroPageServiceProps> = ({
 
             <Link
               href="/contact"
-              className="group relative overflow-hidden border-2 border-[#53828a] text-[#53828a] hover:text-white transition-all duration-300 hover:scale-105 px-8 py-4 text-base rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-[#53828a] focus:ring-offset-2"
+              className="group relative overflow-hidden border-2 border-[#53828a] text-[#53828a] hover:text-white transition-all duration-300 hover:scale-105 px-4 py-3 text-base rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-[#53828a] focus:ring-offset-2"
               aria-label="Demander un devis gratuitement"
             >
               <span className="relative z-10 flex items-center font-medium">

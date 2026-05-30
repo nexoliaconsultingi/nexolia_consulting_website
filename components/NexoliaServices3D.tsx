@@ -434,17 +434,19 @@ const NexoliaServicesEnhanced: React.FC = () => {
           <div className="panel-header">
             <div className='headerServ'>
               <div>
-                <h1 className="panel-title">Nos<br />Services</h1>
+                <h1 className="panel-title">Nos Services</h1>
                 <div className="header-decoration"></div>
               </div>
 
-              <button className='headerServBTN'>Voir Plus Des Services</button>
+             
             </div>
 
             <p className="panel-subtitle">
               Découvrez notre expertise et <br />
               trouvez la solution adaptée à vos besoins
             </p>
+
+             <button className='headerServBTN'>Voir Plus Des Services</button>
           </div>
 
           <div className="services-list">
@@ -856,6 +858,7 @@ const NexoliaServicesEnhanced: React.FC = () => {
           font-weight: 500;
           cursor: pointer;
           transition: var(--transition);
+          margin-top:15px
         }
 
         .headerServBTN:hover {
